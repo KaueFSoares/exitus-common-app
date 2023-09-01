@@ -1,5 +1,12 @@
 {
     "translation": {
-        "teste": "test"        
+        "url": {
+            "login": "/login",
+            "signup": "/cadastro",
+            "home": "/inicio",
+            "code": "/codigo",
+            "leave": "/saidas",
+            "register": "/registros"
+        }    
     }
 }
