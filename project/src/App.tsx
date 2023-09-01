@@ -1,7 +1,7 @@
 import { AuthProvider, RequireAuth } from 'react-auth-kit'
 import { useTranslation } from 'react-i18next'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { LeavePage, LoginPage, SignupPage, HomePage, CodePage, RegisterPage, NotFoundPage } from "./components/pages"
+import { LeavePage, LoginPage, ForgotPassword, HomePage, CodePage, RegisterPage, NotFoundPage } from "./components/pages"
 
 const App = () => {
 
@@ -13,8 +13,8 @@ const App = () => {
       element: <LoginPage />,
     },
     {
-      path: t('url.signup'),
-      element: <SignupPage />,
+      path: t('url.rescuepassword'),
+      element: <ForgotPassword />,
     },
     {
       path: t('url.home'),
