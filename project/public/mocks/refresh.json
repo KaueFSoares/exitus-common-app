@@ -1,0 +1,7 @@
+{
+    "access_token": "dasd.dasdas.dasd.asd.as",
+    "token_type": "bearer",
+    "expires_in": 3600,
+    "refresh_token": "dasd.dasdas.dasd.asd.as",
+    "role": "guarded"
+}
