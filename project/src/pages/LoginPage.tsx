@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AiOutlineMail, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { Link, useNavigate } from "react-router-dom"
-import AuthContext from "../../context/AuthContext"
+import AuthContext from "../context/AuthContext"
 
 const LoginPage = () => {
 

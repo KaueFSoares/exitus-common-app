@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { LeavePage, LoginPage, ForgotPassword, HomePage, CodePage, RegisterPage, NotFoundPage } from "../components/pages"
+import { LeavePage, LoginPage, ForgotPassword, HomePage, CodePage, RegisterPage, NotFoundPage } from "../pages"
 import PrivateRoutes from './PrivateRoutes'
 
 interface Props {
