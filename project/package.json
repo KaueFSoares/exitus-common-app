@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "axios": "^1.5.0",
     "i18next": "^23.4.6",
     "react": "^18.2.0",
-    "react-auth-kit": "^2.12.6",
     "react-dom": "^18.2.0",
     "react-i18next": "^13.2.1",
     "react-icons": "^4.10.1",
@@ -20,11 +22,9 @@
     "validator": "^13.11.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
-    "@vitejs/plugin-react": "^4.0.3",
+    "@vitejs/plugin-react": "^4.0.4",
     "autoprefixer": "^10.4.15",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
