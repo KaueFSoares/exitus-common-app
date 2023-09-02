@@ -18,6 +18,14 @@
             "altlogo": "IFSUL Campus Sapiranga Logo",
             "firstTime": "First time here?",
             "clickHere": "Click here"
+        },
+        "forgotpasswordpage": {
+            "title": "EXITUS",
+            "typeEmail": "Please enter your email to recover your password",
+            "emailPlaceholder": "Enter your email",
+            "send": "Send",
+            "altlogo": "IFSUL Campus Sapiranga Logo",
+            "back": "Back to login"
         }
     }
 }

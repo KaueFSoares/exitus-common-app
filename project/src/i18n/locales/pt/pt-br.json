@@ -18,6 +18,14 @@
             "altlogo": "Logo do IFSUL Câmpus Sapiranga",
             "firstTime": "Primeira acesso?",
             "clickHere": "Clique aqui"
+        },
+        "forgotpasswordpage": {
+            "title": "EXITUS",
+            "typeEmail": "Por favor, digite seu e-mail para recuperar sua senha",
+            "emailPlaceholder": "Digite seu e-mail",
+            "send": "Enviar",
+            "altlogo": "Logo do IFSUL Câmpus Sapiranga",
+            "back": "Voltar para o início"
         }
     }
 }
