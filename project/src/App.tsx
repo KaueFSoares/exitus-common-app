@@ -1,69 +1,33 @@
-import { AuthProvider, RequireAuth } from 'react-auth-kit'
-import { useTranslation } from 'react-i18next'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { LeavePage, LoginPage, ForgotPassword, HomePage, CodePage, RegisterPage, NotFoundPage } from "./components/pages"
+import { useEffect, useState } from "react"
+import AuthContext from "./context/AuthContext"
+import AppRoutes from "./routes/AppRoutes"
+import { AuthData, onLogin, onPageLoad } from "./service/auth.service"
+
 
 const App = () => {
 
-  const { t } = useTranslation()
+  const [auth, setAuth] = useState<AuthData>({authenticated: true})
 
-  const router = createBrowserRouter([
-    {
-      path: t('url.login'),
-      element: <LoginPage />,
-    },
-    {
-      path: t('url.rescuepassword'),
-      element: <ForgotPassword />,
-    },
-    {
-      path: t('url.home'),
-      element: (
-        <RequireAuth loginPath={t('url.login')}>
-          <HomePage />
-        </RequireAuth>
-      )
-    },
-    {
-      path: t('url.code'),
-      element: (
-        <RequireAuth loginPath={t('url.login')}>
-          <CodePage />
-        </RequireAuth>
-      )
-    },
-    {
-      path: t('url.register'),
-      element: (
-        <RequireAuth loginPath={t('url.login')}>
-          <RegisterPage />
-        </RequireAuth>
-      )
-    },
-    {
-      path: t('url.leave'),
-      element: (
-        <RequireAuth loginPath={t('url.login')}>
-          <LeavePage />
-        </RequireAuth>
-      )
-    },
-    {
-      path: '*',
-      element: <NotFoundPage />,
-    }
-  ])
+  useEffect(() => {
+    onPageLoad()
+      .then((data) => {
+        setAuth(data)
+      })
+  }, [])
+
+  const handleOnLogin = (email: string, password: string) => {
+    onLogin(email, password)
+      .then((data) => {
+        setAuth(data)
+      })
+  }
 
   return (
-    <AuthProvider
-      authType={'cookie'}
-      authName={'__auth'}
-      cookieDomain={window.location.hostname}
-      cookieSecure={false}
-    >
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <AuthContext.Provider value={{auth, handleOnLogin}}>
+      <AppRoutes authenticated={auth.authenticated} />
+    </AuthContext.Provider>
   )
+
 }
 
 export default App

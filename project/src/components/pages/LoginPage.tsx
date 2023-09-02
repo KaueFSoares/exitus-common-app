@@ -1,14 +1,22 @@
-import { useState } from "react"
-import { useSignIn } from "react-auth-kit"
+import { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AiOutlineMail, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { Link, useNavigate } from "react-router-dom"
+import AuthContext from "../../context/AuthContext"
 
 const LoginPage = () => {
 
   const { t } = useTranslation()
 
-  const signIn = useSignIn()
+  const {auth} = useContext(AuthContext)
+  const {handleOnLogin} = useContext(AuthContext)
+
+  useEffect(() => {
+    if (auth.authenticated) {
+      navigate(t("url.home"))
+    }
+  })
+
   const navigate = useNavigate()
 
   const [isShown, setIsShown] = useState(false)
@@ -19,16 +27,9 @@ const LoginPage = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     
-    //for removing
-    signIn({
-      token: "asdasd",
-      expiresIn: 60 * 60 * 24 * 14,
-      tokenType: "Bearer",
-      authState: { email: email }
-    })
+    handleOnLogin(email, password)
 
     navigate(t("url.home"))
-    
   }
 
   return (
