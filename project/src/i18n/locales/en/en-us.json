@@ -1,5 +1,23 @@
 {
     "translation": {
-        "teste": "test"        
+        "url": {
+            "login": "/login",
+            "rescuepassword": "/forgot-password",
+            "home": "/",
+            "code": "/code",
+            "leave": "/leave",
+            "register": "/register"
+        },
+        "loginpage": {
+            "title": "EXITUS",
+            "typeEmailAndPassword": "Please enter your email and password",
+            "emailPlaceholder": "Enter your email",
+            "passwordPlaceholder": "Enter your password",
+            "forgotPassword": "Forgot your password?",
+            "login": "Login",
+            "altlogo": "IFSUL Campus Sapiranga Logo",
+            "firstTime": "First time here?",
+            "clickHere": "Click here"
+        }
     }
 }

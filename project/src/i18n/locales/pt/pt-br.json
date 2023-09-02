@@ -3,10 +3,21 @@
         "url": {
             "login": "/login",
             "rescuepassword": "/recuperar-senha",
-            "home": "/inicio",
+            "home": "/",
             "code": "/codigo",
             "leave": "/saidas",
             "register": "/registros"
-        }    
+        },
+        "loginpage": {
+            "title": "EXITUS",
+            "typeEmailAndPassword": "Por favor, digite seu e-mail e senha",
+            "emailPlaceholder": "Digite seu e-mail",
+            "passwordPlaceholder": "Digite sua senha",
+            "forgotPassword": "Esqueceu sua senha?",
+            "login": "Entrar",
+            "altlogo": "Logo do IFSUL Câmpus Sapiranga",
+            "firstTime": "Primeira acesso?",
+            "clickHere": "Clique aqui"
+        }
     }
 }
