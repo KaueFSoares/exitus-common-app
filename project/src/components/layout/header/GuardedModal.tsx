@@ -13,7 +13,7 @@ const GuardedModal = ({ guardeds, handleOnClose, handleOnSelect }: GuardedModalP
   
   return (
     <div className="z-50 absolute w-full h-full bg-black/[.5] top-0 left-0 flex items-center justify-center" onClick={() => handleOnClose(false)}>
-      <div className="bg-light-green p-5 rounded-3xl shadow-lg w-[90%]">
+      <div className="bg-light-green p-5 rounded-3xl shadow-lg w-[90%] sm:w-[50%] lg:w-[40%] xl:w-[30%] 2xl:w-[25%]">
         <header className="flex flex-row items-center justify-start mb-8">
           <button id="guardedmodalbtn" type="button" className="mr-2" onClick={() => handleOnClose(false)}>
             <IoCloseSharp className="text-3xl" />
