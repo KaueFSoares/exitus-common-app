@@ -17,7 +17,7 @@ export const onPageLoad = async () => {
   const refreshToken = localStorage.getItem("refresh_token")
   const role = localStorage.getItem("role") as RoleType
 
-  const isTokenValid = expiresIn < Date.now()
+  const isTokenValid = expiresIn > Date.now()
 
   if (accessToken && isTokenValid) {
     return {
@@ -57,7 +57,13 @@ export const onLogin = async (email: string, password: string) => {
     throw new Error("Login failed")
   }
 
-  const data = response.data as AuthData
+  const data = {
+    accessToken: response.data.access_token,
+    tokenType: response.data.token_type,
+    expiresIn: parseInt(response.data.expires_in),
+    refreshToken: response.data.refresh_token,
+    role: response.data.role,
+  } as AuthData
 
   saveToLocalStorage(data)
 
@@ -71,7 +77,13 @@ const refresh = async (refreshToken: string) => {
     refreshToken: refreshToken,
   })
 
-  const data = response.data as AuthData
+  const data = {
+    accessToken: response.data.access_token,
+    tokenType: response.data.token_type,
+    expiresIn: parseInt(response.data.expires_in),
+    refreshToken: response.data.refresh_token,
+    role: response.data.role,
+  } as AuthData
 
   return data
 }
@@ -92,4 +104,5 @@ const saveToLocalStorage = (data: AuthData) => {
   localStorage.setItem("expires_in", (data.expiresIn! + Date.now()).toString())
   localStorage.setItem("refresh_token", data.refreshToken!)
   localStorage.setItem("role", data.role!)
+  localStorage.setItem("now", Date.now().toString())
 }
