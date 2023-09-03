@@ -45,6 +45,15 @@ module.exports = {
     "import/order": "error",
     "import/no-duplicates": "error",
     "@typescript-eslint/no-explicit-any": "error",
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-param-reassign": "error",
+    "prefer-destructuring": "error",
+    "no-template-curly-in-string": "error",
+    "prefer-regex-literals": "error",
+    "prefer-spread": "error",
+    "no-constructor-return": "error",
+    "no-dupe-class-members": "error",
+    "no-whitespace-before-property": "error",
+    "no-unneeded-ternary": "error",
   },
 }

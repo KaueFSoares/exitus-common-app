@@ -10,6 +10,12 @@ export interface AuthData {
     role?: RoleType
 }
 
+/**
+ * Loads authentication data from local storage and checks if the user is authenticated.
+ *
+ * @returns {Promise<AuthData>} A Promise that resolves to the authentication data or an empty object if not authenticated.
+ * @throws {Error} If there's an error during the refresh process.
+ */
 export const onPageLoad = async () => {
   const accessToken = localStorage.getItem("access_token")
   const tokenType = localStorage.getItem("token_type")
@@ -47,6 +53,14 @@ export const onPageLoad = async () => {
   } as AuthData
 }
 
+/**
+ * Logs in a user with the provided email and password.
+ *
+ * @param {string} email - The user's email.
+ * @param {string} password - The user's password.
+ * @returns {Promise<AuthData>} A Promise that resolves to the authentication data.
+ * @throws {Error} If the login fails or there's an error during the login process.
+ */
 export const onLogin = async (email: string, password: string) => {
   const response = await API.post("/login.json", {
     email: email,
@@ -72,10 +86,21 @@ export const onLogin = async (email: string, password: string) => {
   return data
 }
 
+/**
+ * Refreshes the authentication token using a refresh token.
+ *
+ * @param {string} refreshToken - The refresh token to use for refreshing the authentication.
+ * @returns {Promise<AuthData>} A Promise that resolves to the updated authentication data.
+ * @throws {Error} If there's an error during the refresh process.
+ */
 const refresh = async (refreshToken: string) => {
   const response = await API.post("/refresh.json", {
     refreshToken: refreshToken,
   })
+
+  if (response.status !== 200) {
+    throw new Error("Login failed")
+  }
 
   const data = {
     accessToken: response.data.access_token,
@@ -98,6 +123,12 @@ const refresh = async (refreshToken: string) => {
  * }
  */
 
+/**
+ * Saves authentication data to the local storage.
+ *
+ * @param {AuthData} data - The authentication data to save.
+ * @returns {void}
+ */
 const saveToLocalStorage = (data: AuthData) => {
   localStorage.setItem("access_token", data.accessToken!)
   localStorage.setItem("token_type", data.tokenType!)
