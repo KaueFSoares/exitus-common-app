@@ -26,6 +26,10 @@
             "send": "Send",
             "altlogo": "IFSUL Campus Sapiranga Logo",
             "back": "Back to login"
+        },
+        "header": {
+            "guardeds": "Dependents",
+            "students": "Students"
         }
     }
 }

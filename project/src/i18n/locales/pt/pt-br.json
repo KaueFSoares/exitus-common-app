@@ -26,6 +26,10 @@
             "send": "Enviar",
             "altlogo": "Logo do IFSUL Câmpus Sapiranga",
             "back": "Voltar para o início"
+        },
+        "header": {
+            "guardeds": "Dependentes",
+            "students": "Alunos"
         }
     }
 }
