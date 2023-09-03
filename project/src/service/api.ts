@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios from "axios"
 
 export const API = axios.create({
-    baseURL: "/mocks",
-    headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-    },
-});
+  baseURL: "/mocks",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+})
  

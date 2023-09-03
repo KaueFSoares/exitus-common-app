@@ -1,15 +1,14 @@
-import { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { AiOutlineMail, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import { AiOutlineMail, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { Link, useNavigate } from "react-router-dom"
 import AuthContext from "../context/AuthContext"
 
 const LoginPage = () => {
-
   const { t } = useTranslation()
 
-  const {auth} = useContext(AuthContext)
-  const {handleOnLogin} = useContext(AuthContext)
+  const { auth } = useContext(AuthContext)
+  const { handleOnLogin } = useContext(AuthContext)
 
   useEffect(() => {
     if (auth.authenticated) {
@@ -19,10 +18,10 @@ const LoginPage = () => {
 
   const navigate = useNavigate()
 
-  const [isShown, setIsShown] = useState(false)
+  const [ isShown, setIsShown ] = useState(false)
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [ email, setEmail ] = useState("")
+  const [ password, setPassword ] = useState("")
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -100,7 +99,7 @@ const LoginPage = () => {
               className="flex-grow bg-transparent placeholder:text-white/[.8] outline-none text-sm pr-2
               xsm:text-lg
             "
-              type={isShown ? 'text' : 'password'}
+              type={isShown ? "text" : "password"}
               name="password"
               id="password"
               required={true}

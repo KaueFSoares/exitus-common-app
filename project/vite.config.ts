@@ -7,11 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        'white': '#ffffff',
-        'dark-green': '#00420C',
-        'light-green': '#17882C',
-        'red': '#C90C0F',
-      }
+        "white": "#ffffff",
+        "dark-green": "#00420C",
+        "light-green": "#17882C",
+        "red": "#C90C0F",
+      },
     },
   },
   plugins: [],

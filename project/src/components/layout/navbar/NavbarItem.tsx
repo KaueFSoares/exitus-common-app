@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { NavbarType } from '../../../context/NavbarContext'
+import React from "react"
+import { Link } from "react-router-dom"
+import { NavbarType } from "../../../context/NavbarContext"
 
 interface Props {
     url: string
@@ -11,14 +11,14 @@ interface Props {
 }
 
 const NavbarItem = ({ url, type, icon, selected = false, handleOnClick }: Props) => {
-    return (
-        <Link to={url} 
-            className={`text-3xl p-3 rounded-full ${selected ? "text-light-green bg-light-green/[.2]" : "text-black/[.6]"}`}
-            onClick={() => handleOnClick(type)}
-            >
-            {icon}
-        </Link>
-    )
+  return (
+    <Link to={url} 
+      className={`text-3xl p-3 rounded-full ${selected ? "text-light-green bg-light-green/[.2]" : "text-black/[.6]"}`}
+      onClick={() => handleOnClick(type)}
+    >
+      {icon}
+    </Link>
+  )
 }
 
 export default NavbarItem

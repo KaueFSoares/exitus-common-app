@@ -1,93 +1,95 @@
-import { RoleType } from "../enum/RoleType";
-import { API } from "./api";
+import { RoleType } from "../enum/RoleType"
+import { API } from "./api"
 
 export interface AuthData {
     authenticated: boolean
-    access_token?: string
-    token_type?: string
-    expires_in?: number
-    refresh_token?: string
+    accessToken?: string
+    tokenType?: string
+    expiresIn?: number
+    refreshToken?: string
     role?: RoleType
 }
 
 export const onPageLoad = async () => {
-    const access_token = localStorage.getItem("access_token")
-    const token_type = localStorage.getItem("token_type")
-    const expires_in = parseInt(localStorage.getItem("expires_in") || "0")
-    const refresh_token = localStorage.getItem("refresh_token")
-    const role = localStorage.getItem("role") as RoleType
+  const accessToken = localStorage.getItem("access_token")
+  const tokenType = localStorage.getItem("token_type")
+  const expiresIn = parseInt(localStorage.getItem("expires_in") || "0")
+  const refreshToken = localStorage.getItem("refresh_token")
+  const role = localStorage.getItem("role") as RoleType
 
-    const isTokenValid = expires_in < Date.now()
+  const isTokenValid = expiresIn < Date.now()
 
-    if (access_token && isTokenValid) {
-        return {
-            authenticated: true,
-            access_token: access_token,
-            token_type: token_type,
-            expires_in: expires_in,
-            refresh_token: refresh_token,
-            role: role
-        } as AuthData
-    }
-
-    if (access_token && !isTokenValid) {
-        const authUser = await refresh(refresh_token!)
-            .then((data) => {
-                saveToLocalStorage(data)
-                return data
-            })
-
-        authUser.authenticated = true
-
-        return authUser
-    }
-
+  if (accessToken && isTokenValid) {
     return {
-        authenticated: false,
+      authenticated: true,
+      accessToken: accessToken,
+      tokenType: tokenType,
+      expiresIn: expiresIn,
+      refreshToken: refreshToken,
+      role: role,
     } as AuthData
+  }
+
+  if (accessToken && !isTokenValid) {
+    const authUser = await refresh(refreshToken!)
+      .then((data) => {
+        saveToLocalStorage(data)
+        return data
+      })
+
+    authUser.authenticated = true
+
+    return authUser
+  }
+
+  return {
+    authenticated: false,
+  } as AuthData
 }
 
 export const onLogin = async (email: string, password: string) => {
-    const response = await API.post("/login.json", {
-        email: email,
-        password: password
-    })
+  const response = await API.post("/login.json", {
+    email: email,
+    password: password,
+  })
 
-    if (response.status !== 200) {
-        throw new Error("Login failed")
-    }
+  if (response.status !== 200) {
+    throw new Error("Login failed")
+  }
 
-    const data = response.data as AuthData
+  const data = response.data as AuthData
 
-    saveToLocalStorage(data)
+  saveToLocalStorage(data)
 
-    data.authenticated = true
+  data.authenticated = true
 
-    return data
+  return data
 }
 
-const refresh = async (refresh_token: string) => {
-    const response = await API.post("/refresh.json", {
-        refresh_token: refresh_token
-    })
+const refresh = async (refreshToken: string) => {
+  const response = await API.post("/refresh.json", {
+    refreshToken: refreshToken,
+  })
 
-    const data = response.data as AuthData
+  const data = response.data as AuthData
 
-    return data
+  return data
 }
 
-const clearLocalStorage = () => {
-    localStorage.removeItem("access_token")
-    localStorage.removeItem("token_type")
-    localStorage.removeItem("expires_in")
-    localStorage.removeItem("refresh_token")
-    localStorage.removeItem("role")
-}
+/*
+ * const clearLocalStorage = () => {
+ *     localStorage.removeItem("access_token")
+ *     localStorage.removeItem("token_type")
+ *     localStorage.removeItem("expires_in")
+ *     localStorage.removeItem("refresh_token")
+ *     localStorage.removeItem("role")
+ * }
+ */
 
 const saveToLocalStorage = (data: AuthData) => {
-    localStorage.setItem("access_token", data.access_token!)
-    localStorage.setItem("token_type", data.token_type!)
-    localStorage.setItem("expires_in", (data.expires_in! + Date.now()).toString())
-    localStorage.setItem("refresh_token", data.refresh_token!)
-    localStorage.setItem("role", data.role!)
+  localStorage.setItem("access_token", data.accessToken!)
+  localStorage.setItem("token_type", data.tokenType!)
+  localStorage.setItem("expires_in", (data.expiresIn! + Date.now()).toString())
+  localStorage.setItem("refresh_token", data.refreshToken!)
+  localStorage.setItem("role", data.role!)
 }

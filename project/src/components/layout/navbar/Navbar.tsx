@@ -1,16 +1,15 @@
 import { AiOutlineHome } from "react-icons/ai"
 import { BsQrCode } from "react-icons/bs"
 import { IoDocumentTextOutline } from "react-icons/io5"
-import NavbarItem from "./NavbarItem"
 import { useTranslation } from "react-i18next"
-import AuthContext from "../../../context/AuthContext"
 import { useContext } from "react"
-import { RoleType } from "../../../enum/RoleType"
 import { RxExit } from "react-icons/rx"
+import AuthContext from "../../../context/AuthContext"
+import { RoleType } from "../../../enum/RoleType"
 import { NavbarContext } from "../../../context/NavbarContext"
+import NavbarItem from "./NavbarItem"
 
 const Navbar = () => {
-
   const { t } = useTranslation()
 
   const { auth } = useContext(AuthContext)

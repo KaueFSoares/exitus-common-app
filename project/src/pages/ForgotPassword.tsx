@@ -1,20 +1,15 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AiOutlineMail } from "react-icons/ai"
 import { Link } from "react-router-dom"
 
 const ForgotPassword = () => {
-
   const { t } = useTranslation()
 
-  const [isShown, setIsShown] = useState(false)
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [ email, setEmail ] = useState("")
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(email, password)
   }
 
   return (

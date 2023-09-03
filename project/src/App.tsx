@@ -6,8 +6,7 @@ import { NavbarContext, NavbarType } from "./context/NavbarContext"
 
 
 const App = () => {
-
-  const [auth, setAuth] = useState<AuthData>({ authenticated: true })
+  const [ auth, setAuth ] = useState<AuthData>({ authenticated: true })
 
   useEffect(() => {
     onPageLoad()
@@ -23,7 +22,7 @@ const App = () => {
       })
   }
 
-  const [selected, setSelected] = useState<NavbarType>("home")
+  const [ selected, setSelected ] = useState<NavbarType>("home")
 
   return (
     <AuthContext.Provider value={{ auth, handleOnLogin }}>
@@ -32,7 +31,6 @@ const App = () => {
       </NavbarContext.Provider>
     </AuthContext.Provider>
   )
-
 }
 
 export default App

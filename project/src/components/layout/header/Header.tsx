@@ -9,7 +9,7 @@ const Header = () => {
                       md:justify-end md:items-center md:text-left md:mr-3
                       xl:text-2xl">
         Kauê Felipe Muller Soares
-        </h2>
+      </h2>
     </div>
   )
 }
