@@ -104,5 +104,4 @@ const saveToLocalStorage = (data: AuthData) => {
   localStorage.setItem("expires_in", (data.expiresIn! + Date.now()).toString())
   localStorage.setItem("refresh_token", data.refreshToken!)
   localStorage.setItem("role", data.role!)
-  localStorage.setItem("now", Date.now().toString())
 }
