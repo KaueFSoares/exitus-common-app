@@ -28,7 +28,7 @@ export const onLoad = async (token: string): Promise<string> => {
  * @returns {Promise<string>} a Promise that resolves to a string.
  */
 export const onUpdate = async (token: string): Promise<string> => {
-  const response = await ClosedAPI(token).put("/updateCode.json")
+  const response = await ClosedAPI(token).get("/updateCode.json")
 
   if (response.status !== 200) {
     throw new Error("Update failed")
