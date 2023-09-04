@@ -17,7 +17,7 @@ const Navbar = () => {
   const { selected, setSelected } = useContext(NavbarContext)
 
   return (
-    <nav className="shadow-xl flex py-5 px-8 gap-8 rounded-full absolute bottom-8">
+    <nav className="shadow-xl flex py-5 px-8 gap-8 rounded-full absolute bottom-8 bg-white z-40">
       {auth.role === RoleType.GUARDIAN ? (
         <NavbarItem
           url={t("url.leave")}
