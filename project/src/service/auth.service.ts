@@ -16,7 +16,7 @@ export interface AuthData {
  * @returns {Promise<AuthData>} A Promise that resolves to the authentication data or an empty object if not authenticated.
  * @throws {Error} If there's an error during the refresh process.
  */
-export const onPageLoad = async () => {
+export const onPageLoad = async (): Promise<AuthData> => {
   const accessToken = localStorage.getItem("access_token")
   const tokenType = localStorage.getItem("token_type")
   const expiresIn = parseInt(localStorage.getItem("expires_in") || "0")
@@ -61,7 +61,7 @@ export const onPageLoad = async () => {
  * @returns {Promise<AuthData>} A Promise that resolves to the authentication data.
  * @throws {Error} If the login fails or there's an error during the login process.
  */
-export const onLogin = async (email: string, password: string) => {
+export const onLogin = async (email: string, password: string): Promise<AuthData> => {
   const response = await OpenedAPI().post("/login.json", {
     email: email,
     password: password,
@@ -93,7 +93,7 @@ export const onLogin = async (email: string, password: string) => {
  * @returns {Promise<AuthData>} A Promise that resolves to the updated authentication data.
  * @throws {Error} If there's an error during the refresh process.
  */
-const refresh = async (refreshToken: string) => {
+const refresh = async (refreshToken: string): Promise<AuthData> => {
   const response = await OpenedAPI().post("/refresh.json", {
     refreshToken: refreshToken,
   })
@@ -123,13 +123,13 @@ const refresh = async (refreshToken: string) => {
  * }
  */
 
+
 /**
- * Saves authentication data to the local storage.
- *
- * @param {AuthData} data - The authentication data to save.
- * @returns {void}
+ * The function saves authentication data to the local storage.
+ * @param {AuthData} data - The `data` parameter is an object of type `AuthData`.
+ * @returns {void} The function does not return anything.
  */
-const saveToLocalStorage = (data: AuthData) => {
+const saveToLocalStorage = (data: AuthData): void => {
   localStorage.setItem("access_token", data.accessToken!)
   localStorage.setItem("token_type", data.tokenType!)
   localStorage.setItem("expires_in", (data.expiresIn! + Date.now()).toString())
