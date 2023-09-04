@@ -1,11 +1,9 @@
 import { ClosedAPI } from "./api"
 
 /**
- * The `onLoad` function makes an API request to retrieve a code fingerprint and returns it as a
- * string.
- * @param {string} token - The `token` parameter is a string that represents the authentication token
- * required to access the API.
- * @returns {Promise<string>} a Promise that resolves to a string.
+ * Makes an API request to retrieve a code fingerprint and returns it as a string.
+ * @param {string} token - A string that represents the authentication token required to access the API.
+ * @returns {Promise<string>} a Promise that resolves to a string  to be showed as a QR Code.
  */
 export const onLoad = async (token: string): Promise<string> => {
   const response = await ClosedAPI(token).get("/code.json")
@@ -20,12 +18,9 @@ export const onLoad = async (token: string): Promise<string> => {
 }
 
 /**
- * The function `onUpdate` makes an asynchronous request to update code using a token and returns the
- * fingerprint data.
- * @param {string} token - The `token` parameter is a string that represents the authentication token
- * required to access the ClosedAPI. It is used to authenticate the user and authorize the update
- * request.
- * @returns {Promise<string>} a Promise that resolves to a string.
+ * Makes an API request to update the code fingerprint and returns it as a string.
+ * @param {string} token - A string that represents the authentication token required to access the API.
+ * @returns {Promise<string>} a Promise that resolves to a string  to be showed as a QR Code.
  */
 export const onUpdate = async (token: string): Promise<string> => {
   const response = await ClosedAPI(token).get("/updateCode.json")
