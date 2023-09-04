@@ -62,7 +62,14 @@ export const onPageLoad = async (): Promise<AuthData> => {
  * @throws {Error} If the login fails or there's an error during the login process.
  */
 export const onLogin = async (email: string, password: string): Promise<AuthData> => {
-  const response = await OpenedAPI().get("/login.json?email=" + email + "&password=" + password)
+  // *** this is the way it should be done ***
+  // const response = await OpenedAPI().get("/login.json", {
+  //   email: email,
+  //   password: password,
+  // })
+
+  // *** this is the way it is done for now for netlify deploy ***
+  const response = await OpenedAPI().get("/login.json" + "?email=" + email + "&password=" + password)
 
   if (response.status !== 200) {
     throw new Error("Login failed")
@@ -91,9 +98,13 @@ export const onLogin = async (email: string, password: string): Promise<AuthData
  * @throws {Error} If there's an error during the refresh process.
  */
 const refresh = async (refreshToken: string): Promise<AuthData> => {
-  const response = await OpenedAPI().post("/refresh.json", {
-    refreshToken: refreshToken,
-  })
+  // *** this is the way it should be done ***
+  // const response = await OpenedAPI().post("/refresh.json", {
+  //   refreshToken: refreshToken,
+  // })
+
+  // *** this is the way it is done for now for netlify deploy ***
+  const response = await OpenedAPI().post("/refresh.json" + "?refreshToken=" + refreshToken)
 
   if (response.status !== 200) {
     throw new Error("Login failed")
