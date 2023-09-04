@@ -11,6 +11,7 @@ export default {
         "dark-green": "#00420C",
         "light-green": "#17882C",
         "red": "#C90C0F",
+        "gray": "#D9D9D9",
       },
       screens: {
         xsm: "380px",
