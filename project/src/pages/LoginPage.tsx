@@ -90,14 +90,16 @@ const LoginPage = () => {
             />
           </div>
 
-          <div className="w-full flex bg-white/[.2] py-2 px-4 rounded-3xl mb-8
+          <div className="w-full flex bg-white/[.2] py-2 px-4 rounded-3xl mb-8 justify-between
           xsm:py-4 xsm:px-6
         ">
-            <AiOutlineLock className="text-3xl mr-4" />
+            <div>
+              <AiOutlineLock className="text-3xl mr-4" />
+            </div>
 
             <input
-              className="flex-grow bg-transparent placeholder:text-white/[.8] outline-none text-sm pr-2
-              xsm:text-lg
+              className="flex-grow bg-transparent placeholder:text-white/[.8] outline-none text-sm pr-2 w-[80%]
+              xsm:text-lg 
             "
               type={isShown ? "text" : "password"}
               name="password"
