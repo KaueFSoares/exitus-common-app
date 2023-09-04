@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next"
 import { useEffect, useState } from "react"
+import { ToastContainer } from "react-toastify"
 import AuthContext from "./context/AuthContext"
 import AppRoutes from "./routes/AppRoutes"
 import { AuthData, onLogin, onPageLoad } from "./service/auth.service"
@@ -44,6 +45,7 @@ const App = () => {
     <AuthContext.Provider value={{ auth, handleOnLogin }}>
       <NavbarContext.Provider value={{ selected, setSelected }}>
         <AppRoutes authenticated={auth.authenticated} />
+        <ToastContainer />
       </NavbarContext.Provider>
     </AuthContext.Provider>
   )
