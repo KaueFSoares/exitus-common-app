@@ -1,5 +1,5 @@
 import { RoleType } from "../enum/RoleType"
-import { API } from "./api"
+import { OpenedAPI } from "./api"
 
 export interface AuthData {
     authenticated: boolean
@@ -62,7 +62,7 @@ export const onPageLoad = async () => {
  * @throws {Error} If the login fails or there's an error during the login process.
  */
 export const onLogin = async (email: string, password: string) => {
-  const response = await API.post("/login.json", {
+  const response = await OpenedAPI().post("/login.json", {
     email: email,
     password: password,
   })
@@ -94,7 +94,7 @@ export const onLogin = async (email: string, password: string) => {
  * @throws {Error} If there's an error during the refresh process.
  */
 const refresh = async (refreshToken: string) => {
-  const response = await API.post("/refresh.json", {
+  const response = await OpenedAPI().post("/refresh.json", {
     refreshToken: refreshToken,
   })
 
