@@ -9,6 +9,12 @@
             "register": "/registros",
             "firstaccess": "/primeiro-acesso"
         },
+        "errormessage": {
+            "loginfailed": "Login falhou. Por favor, tente novamente."
+        },
+        "successmessage": {
+            "codeupdated": "Código atualizado com sucesso!"
+        },
         "loginpage": {
             "title": "EXITUS",
             "typeEmailAndPassword": "Por favor, digite seu e-mail e senha",

@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next"
 import { useEffect, useState } from "react"
-import { ToastContainer } from "react-toastify"
+import { ToastContainer, toast } from "react-toastify"
+import { NavigateFunction } from "react-router"
 import AuthContext from "./context/AuthContext"
 import AppRoutes from "./routes/AppRoutes"
 import { AuthData, onLogin, onPageLoad } from "./service/auth.service"
@@ -34,10 +35,14 @@ const App = () => {
       })
   }, [])
 
-  const handleOnLogin = (email: string, password: string) => {
+  const handleOnLogin = (email: string, password: string, navigator: NavigateFunction) => {
     onLogin(email, password)
       .then((data) => {
         setAuth(data)
+        navigator(t("url.home"))
+      })
+      .catch(() => {
+        toast.error(t("errormessage.loginfailed"))
       })
   }
 

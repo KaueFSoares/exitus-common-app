@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import QRCode from "react-qr-code"
 import { useTranslation } from "react-i18next"
+import { toast } from "react-toastify"
 import PageWrapper from "../components/wrapper/PageWrapper"
 import { onLoad, onUpdate } from "../service/code.service"
 import AuthContext from "../context/AuthContext"
@@ -25,6 +26,7 @@ const CodePage = () => {
     onUpdate(auth.accessToken!)
       .then((data) => {
         setCode(data)
+        toast.success(t("successmessage.codeupdated"))
       })
   }
 

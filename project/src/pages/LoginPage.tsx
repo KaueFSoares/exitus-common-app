@@ -10,13 +10,13 @@ const LoginPage = () => {
   const { auth } = useContext(AuthContext)
   const { handleOnLogin } = useContext(AuthContext)
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     if (auth.authenticated) {
       navigate(t("url.home"))
     }
   })
-
-  const navigate = useNavigate()
 
   const [ isShown, setIsShown ] = useState(false)
 
@@ -26,9 +26,7 @@ const LoginPage = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     
-    handleOnLogin(email, password)
-
-    navigate(t("url.home"))
+    handleOnLogin(email, password, navigate)
   }
 
   return (
