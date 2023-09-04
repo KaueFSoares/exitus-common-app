@@ -143,7 +143,7 @@ const LoginPage = () => {
           <p className="text-lg mb-1">
             {t("loginpage.firstTime")}
           </p>
-          <Link to={t("url.rescuepassword")} className="w-full text-center text-xl font-semibold mb-8 hover:underline">
+          <Link to={t("url.firstaccess")} className="w-full text-center text-xl font-semibold mb-8 hover:underline">
             {t("loginpage.clickHere")}
           </Link>
         </div>

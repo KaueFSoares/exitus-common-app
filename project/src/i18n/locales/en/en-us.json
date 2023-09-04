@@ -6,7 +6,8 @@
             "home": "/",
             "code": "/code",
             "leave": "/leave",
-            "register": "/register"
+            "register": "/register",
+            "firstaccess": "/first-access"
         },
         "loginpage": {
             "title": "EXITUS",
@@ -22,6 +23,14 @@
         "forgotpasswordpage": {
             "title": "EXITUS",
             "typeEmail": "Please enter your email to recover your password",
+            "emailPlaceholder": "Enter your email",
+            "send": "Send",
+            "altlogo": "IFSUL Campus Sapiranga Logo",
+            "back": "Back to login"
+        },
+        "firstacesspage": {
+            "title": "EXITUS",
+            "typeEmail": "Please enter your email to proceed with you registration",
             "emailPlaceholder": "Enter your email",
             "send": "Send",
             "altlogo": "IFSUL Campus Sapiranga Logo",

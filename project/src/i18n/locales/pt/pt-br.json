@@ -6,7 +6,8 @@
             "home": "/",
             "code": "/codigo",
             "leave": "/saidas",
-            "register": "/registros"
+            "register": "/registros",
+            "firstaccess": "/primeiro-acesso"
         },
         "loginpage": {
             "title": "EXITUS",
@@ -22,6 +23,14 @@
         "forgotpasswordpage": {
             "title": "EXITUS",
             "typeEmail": "Por favor, digite seu e-mail para recuperar sua senha",
+            "emailPlaceholder": "Digite seu e-mail",
+            "send": "Enviar",
+            "altlogo": "Logo do IFSUL Câmpus Sapiranga",
+            "back": "Voltar para o início"
+        },
+        "firstacesspage": {
+            "title": "EXITUS",
+            "typeEmail": "Por favor, digite seu e-mail para seguir com seu cadastro",
             "emailPlaceholder": "Digite seu e-mail",
             "send": "Enviar",
             "altlogo": "Logo do IFSUL Câmpus Sapiranga",
