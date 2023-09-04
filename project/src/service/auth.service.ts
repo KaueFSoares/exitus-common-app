@@ -1,5 +1,6 @@
 import { RoleType } from "../enum/RoleType"
 import { OpenedAPI } from "./api"
+import { URL } from "./url"
 
 export interface AuthData {
     authenticated: boolean
@@ -63,13 +64,13 @@ export const onPageLoad = async (): Promise<AuthData> => {
  */
 export const onLogin = async (email: string, password: string): Promise<AuthData> => {
   // *** this is the way it should be done ***
-  // const response = await OpenedAPI().get("/login.json", {
+  // const response = await OpenedAPI().get(URL.LOGIN, {
   //   email: email,
   //   password: password,
   // })
 
   // *** this is the way it is done for now for netlify deploy ***
-  const response = await OpenedAPI().get("/login.json" + "?email=" + email + "&password=" + password)
+  const response = await OpenedAPI().get(URL.LOGIN + "?email=" + email + "&password=" + password)
 
   if (response.status !== 200) {
     throw new Error("Login failed")
@@ -99,12 +100,12 @@ export const onLogin = async (email: string, password: string): Promise<AuthData
  */
 const refresh = async (refreshToken: string): Promise<AuthData> => {
   // *** this is the way it should be done ***
-  // const response = await OpenedAPI().post("/refresh.json", {
+  // const response = await OpenedAPI().post(URL.REFRESH, {
   //   refreshToken: refreshToken,
   // })
 
   // *** this is the way it is done for now for netlify deploy ***
-  const response = await OpenedAPI().post("/refresh.json" + "?refreshToken=" + refreshToken)
+  const response = await OpenedAPI().post(URL.REFRESH_ACCESS_TOKEN + "?refreshToken=" + refreshToken)
 
   if (response.status !== 200) {
     throw new Error("Login failed")

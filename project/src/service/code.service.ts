@@ -1,4 +1,5 @@
 import { ClosedAPI } from "./api"
+import { URL } from "./url"
 
 /**
  * Makes an API request to retrieve a code fingerprint and returns it as a string.
@@ -6,7 +7,7 @@ import { ClosedAPI } from "./api"
  * @returns {Promise<string>} a Promise that resolves to a string  to be showed as a QR Code.
  */
 export const onLoad = async (token: string): Promise<string> => {
-  const response = await ClosedAPI(token).get("/code.json")
+  const response = await ClosedAPI(token).get(URL.CODE)
 
   if (response.status !== 200) {
     throw new Error("Load failed")
@@ -23,7 +24,7 @@ export const onLoad = async (token: string): Promise<string> => {
  * @returns {Promise<string>} a Promise that resolves to a string  to be showed as a QR Code.
  */
 export const onUpdate = async (token: string): Promise<string> => {
-  const response = await ClosedAPI(token).get("/updateCode.json")
+  const response = await ClosedAPI(token).get(URL.UPDATE_CODE)
 
   if (response.status !== 200) {
     throw new Error("Update failed")

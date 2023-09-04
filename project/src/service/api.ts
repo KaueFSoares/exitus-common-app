@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios"
+import { URL } from "./url"
 
 /**
  * Creates a new Axios instance without access token.
@@ -8,7 +9,7 @@ import axios, { AxiosInstance } from "axios"
  */
 export const OpenedAPI = (): AxiosInstance => {
   return axios.create({
-    baseURL: "/mocks",
+    baseURL: URL.BASE,
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
@@ -25,7 +26,7 @@ export const OpenedAPI = (): AxiosInstance => {
  */
 export const ClosedAPI = (token: string): AxiosInstance => {
   return axios.create({
-    baseURL: "/mocks",
+    baseURL: URL.BASE,
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
