@@ -30,6 +30,11 @@
         "header": {
             "guardeds": "Dependents",
             "students": "Students"
+        },
+        "codepage": {
+            "thisisyour": "This is yours",
+            "code": "QR Code",
+            "update": "Update"
         }
     }
 }

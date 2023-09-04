@@ -30,6 +30,11 @@
         "header": {
             "guardeds": "Dependentes",
             "students": "Alunos"
+        },
+        "codepage": {
+            "thisisyour": "Este é o seu",
+            "code": "QR Code",
+            "update": "Atualizar"
         }
     }
 }
