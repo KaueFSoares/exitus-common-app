@@ -55,5 +55,8 @@ module.exports = {
     "no-dupe-class-members": "error",
     "no-whitespace-before-property": "error",
     "no-unneeded-ternary": "error",
+    "one-var": ["error", "never"],
+    "newline-before-return": "error",
+    "no-negated-condition": "error" 
   },
 }
