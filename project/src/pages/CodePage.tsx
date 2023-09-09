@@ -31,7 +31,7 @@ const CodePage = () => {
   }
 
   return (auth.role === RoleType.EMPLOYEE || auth.role === RoleType.GUARDED) ? (
-    <PageWrapper>
+    <PageWrapper full>
       <section className="w-full h-full flex flex-col items-center p-5 xsm:p-10">
         <div className="w-full flex flex-col justify-center mb-4 xsm:mb-8">
           <p className="text-light-green text-center text-lg xsm:text-xl">

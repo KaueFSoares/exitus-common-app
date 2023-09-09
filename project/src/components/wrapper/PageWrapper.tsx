@@ -4,11 +4,16 @@ import Navbar from "../layout/navbar/Navbar"
 
 interface PageWrapperProps {
     children: React.ReactNode
+    full: boolean
 }
 
-const PageWrapper = ({ children }: PageWrapperProps) => {
+/**
+ * 
+ * @param full {boolean} - if the height is 100vh 
+ */
+const PageWrapper = ({ children, full }: PageWrapperProps) => {
   return (
-    <main className="relative w-full h-screen flex flex-col items-center justify-start">
+    <main className={`relative w-full ${full ? "h-screen" : "min-h-screen"} flex flex-col items-center justify-start`}>
       <Header />
       {children}
       <Navbar />
