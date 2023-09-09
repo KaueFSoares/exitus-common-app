@@ -129,7 +129,7 @@ const LoginPage = () => {
 
           <button
             type="submit"
-            className="w-full bg-dark-green text-3xl font-extrabold py-4 rounded-full mt-8 border-2 border-white hover:scale-105 transition"
+            className="w-full bg-dark-green text-3xl font-extrabold py-4 rounded-full mt-8 border-2 border-white transition"
           >
             {t("loginpage.login")}
           </button>
