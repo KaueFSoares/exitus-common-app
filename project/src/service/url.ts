@@ -4,4 +4,5 @@ export enum URL {
   REFRESH_ACCESS_TOKEN = "/refresh.json",
   CODE = "/code.json",
   UPDATE_CODE = "/updateCode.json",
+  REGISTER = "/register.json",
 }
