@@ -17,7 +17,7 @@ export default {
         xsm: "380px",
       },
       boxShadow: {
-        navbar: "0 0 20px rgba(0, 0, 0, 0.2)",
+        full: "0 0 20px rgba(0, 0, 0, 0.2)",
       },
     },
   },
