@@ -3,7 +3,7 @@ import { ClosedAPI } from "./api";
 import { URL } from "./url";
 
 interface IRegisterResponse {
-  id: number,
+  id: string,
   user_id: string,
   date: string,
   time: string,
@@ -30,7 +30,7 @@ export const onLoad = async (token: string, user_id?: string): Promise<IRegister
       user_id: register.user_id,
       date_time: new Date(`${register.date} ${register.time}`),
       type: register.type,
-    }
+    } as IRegister
   })
 
   return data

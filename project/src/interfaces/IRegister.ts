@@ -1,8 +1,8 @@
 import { RegisterType } from "../enum/RegisterType"
 
 export interface IRegister {
-  id: number,
-  user_id: number,
+  id: string,
+  user_id: string,
   date_time: Date,
   type: RegisterType,
 }
