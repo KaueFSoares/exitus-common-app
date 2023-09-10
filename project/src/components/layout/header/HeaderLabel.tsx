@@ -1,7 +1,7 @@
 import { IoIosArrowDown } from "react-icons/io"
 import { useContext, useState } from "react"
 import AuthContext from "../../../context/AuthContext"
-import GuardedModal from "./GuardedModal"
+import GuardedModal from "../modal/GuardedModal"
 
 const guardeds = [ "João Pedro", "Matheus da Silva", "Maria Joaquina", "Julia Moraes Julia Moraes Julia Moraes" ]
 
