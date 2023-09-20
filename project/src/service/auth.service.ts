@@ -6,9 +6,10 @@ export interface AuthData {
     authenticated: boolean
     accessToken?: string
     tokenType?: string
-    expiresIn?: number
+    accessTokenExpiresIn?: number
     refreshToken?: string
-    role?: RoleType
+    refreshTokenExpiresIn?: number
+    roles?: RoleType[]
 }
 
 /**
@@ -18,27 +19,31 @@ export interface AuthData {
  * @throws {Error} If there's an error during the refresh process.
  */
 export const onPageLoad = async (): Promise<AuthData> => {
-  const accessToken = localStorage.getItem("access_token")
-  const tokenType = localStorage.getItem("token_type")
-  const expiresIn = parseInt(localStorage.getItem("expires_in") || "0")
-  const refreshToken = localStorage.getItem("refresh_token")
-  const role = localStorage.getItem("role") as RoleType
+  const accessToken = localStorage.getItem("accessToken")
+  const tokenType = localStorage.getItem("tokenType")
+  const accessTokenExpiresIn = parseInt(localStorage.getItem("accessTokenExpiresIn") || "0")
+  const refreshToken = localStorage.getItem("refreshToken")
+  const refreshTokenExpiresIn = parseInt(localStorage.getItem("refreshTokenExpiresIn") || "0")
+  const roles: RoleType[] = JSON.parse(localStorage.getItem("roles") || "[]").map((role: string) => getRoleType(role))
 
-  const isTokenValid = expiresIn > Date.now()
+  const isAccessTokenValid = accessTokenExpiresIn > Date.now()
+  const isRefreshTokenValid = refreshTokenExpiresIn > Date.now()
 
-  if (accessToken && isTokenValid) {
+  if (accessToken && isAccessTokenValid) {
+    console.log("Access token is valid")
     return {
       authenticated: true,
       accessToken: accessToken,
       tokenType: tokenType,
-      expiresIn: expiresIn,
+      accessTokenExpiresIn: accessTokenExpiresIn,
       refreshToken: refreshToken,
-      role: role,
+      refreshTokenExpiresIn: refreshTokenExpiresIn,
+      roles: roles,
     } as AuthData
   }
 
-  if (accessToken && !isTokenValid) {
-    const authUser = await refresh(refreshToken!)
+  if (accessToken && !isAccessTokenValid && refreshToken && isRefreshTokenValid) {
+    const authUser = await refresh(refreshToken)
       .then((data) => {
         saveToLocalStorage(data)
         return data
@@ -48,6 +53,8 @@ export const onPageLoad = async (): Promise<AuthData> => {
 
     return authUser
   }
+
+  console.log("No access token found")
 
   return {
     authenticated: false,
@@ -63,14 +70,11 @@ export const onPageLoad = async (): Promise<AuthData> => {
  * @throws {Error} If the login fails or there's an error during the login process.
  */
 export const onLogin = async (email: string, password: string): Promise<AuthData> => {
-  // *** this is the way it should be done ***
-  // const response = await OpenedAPI().get(URL.LOGIN, {
-  //   email: email,
-  //   password: password,
-  // })
+  const response = await OpenedAPI().post(URL.LOGIN, {
+    email: email,
+    password: password,
+  })
 
-  // *** this is the way it is done for now for netlify deploy ***
-  const response = await OpenedAPI().get(URL.LOGIN + "?email=" + email + "&password=" + password)
 
   if (response.status !== 200) {
     throw new Error("Login failed")
@@ -79,9 +83,10 @@ export const onLogin = async (email: string, password: string): Promise<AuthData
   const data = {
     accessToken: response.data.access_token,
     tokenType: response.data.token_type,
-    expiresIn: parseInt(response.data.expires_in),
+    accessTokenExpiresIn: parseInt(response.data.access_token_expires_at),
     refreshToken: response.data.refresh_token,
-    role: response.data.role,
+    refreshTokenExpiresIn: parseInt(response.data.refresh_token_expires_at),
+    roles: response.data.roles,
   } as AuthData
 
   saveToLocalStorage(data)
@@ -99,13 +104,10 @@ export const onLogin = async (email: string, password: string): Promise<AuthData
  * @throws {Error} If there's an error during the refresh process.
  */
 const refresh = async (refreshToken: string): Promise<AuthData> => {
-  // *** this is the way it should be done ***
-  // const response = await OpenedAPI().post(URL.REFRESH, {
-  //   refreshToken: refreshToken,
-  // })
+  const response = await OpenedAPI().post(URL.REFRESH_ACCESS_TOKEN, {
+    refresh_token: refreshToken,
+  })
 
-  // *** this is the way it is done for now for netlify deploy ***
-  const response = await OpenedAPI().post(URL.REFRESH_ACCESS_TOKEN + "?refreshToken=" + refreshToken)
 
   if (response.status !== 200) {
     throw new Error("Login failed")
@@ -114,9 +116,10 @@ const refresh = async (refreshToken: string): Promise<AuthData> => {
   const data = {
     accessToken: response.data.access_token,
     tokenType: response.data.token_type,
-    expiresIn: parseInt(response.data.expires_in),
+    accessTokenExpiresIn: parseInt(response.data.access_token_expires_at),
     refreshToken: response.data.refresh_token,
-    role: response.data.role,
+    refreshTokenExpiresIn: parseInt(response.data.refresh_token_expires_at),
+    roles: response.data.roles,
   } as AuthData
 
   return data
@@ -139,9 +142,31 @@ const refresh = async (refreshToken: string): Promise<AuthData> => {
  * @returns {void} The function does not return anything.
  */
 const saveToLocalStorage = (data: AuthData): void => {
-  localStorage.setItem("access_token", data.accessToken!)
-  localStorage.setItem("token_type", data.tokenType!)
-  localStorage.setItem("expires_in", (data.expiresIn! + Date.now()).toString())
-  localStorage.setItem("refresh_token", data.refreshToken!)
-  localStorage.setItem("role", data.role!)
+  localStorage.setItem("accessToken", data.accessToken!)
+  localStorage.setItem("tokenType", data.tokenType!)
+  localStorage.setItem("accessTokenExpiresIn", (data.accessTokenExpiresIn! + Date.now()).toString())
+  localStorage.setItem("refreshToken", data.refreshToken!)
+  localStorage.setItem("refreshTokenExpiresIn", (data.refreshTokenExpiresIn! + Date.now()).toString())
+  localStorage.setItem("roles", JSON.stringify(data.roles))
+}
+
+/**
+ * The function `getRoleType` takes a role string as input and returns the corresponding RoleType enum
+ * value.
+ * @param {string} role - The role parameter is a string that represents the role type.
+ * @returns {RoleType} The function `getRoleType` returns a value of type `RoleType`.
+ */
+const getRoleType = (role: string): RoleType => {
+  switch (role) {
+    case "ADMIN":
+      return RoleType.ADMIN
+    case "GUARDED":
+      return RoleType.GUARDED
+    case "GUARDIAN":
+      return RoleType.GUARDIAN
+      case "EMPLOYEE":
+      return RoleType.EMPLOYEE
+    default:
+      return RoleType.ADMIN
+  }
 }
