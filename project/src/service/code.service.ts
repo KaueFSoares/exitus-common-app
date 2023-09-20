@@ -8,11 +8,10 @@ import { URL } from "./url"
  */
 export const onLoad = async (token: string): Promise<string> => {
   const data = getFromLocalStorage()
-
   if (data) {
     return data
   }
-
+    
   const response = await getFromApi(token)
 
   saveInLocalStorage(response)
@@ -64,7 +63,10 @@ const saveInLocalStorage = (fingerPrint: string): void => {
  * @returns {Promise<string>} a Promise that resolves to a string.
  */
 const getFromApi = async (token: string): Promise<string> => {
-  const response = await ClosedAPI(token).get(URL.CODE)
+  const response = await ClosedAPI(token).get(URL.CODE).then((response) => {
+    console.log(response)
+    return response
+  })
 
   if (response.status !== 200) {
     throw new Error("Load failed")

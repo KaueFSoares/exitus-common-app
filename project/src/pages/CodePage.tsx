@@ -14,12 +14,14 @@ const CodePage = () => {
   const [ code, setCode ] = useState<string>("")
 
   const { auth } = useContext(AuthContext)
-  
+
   useEffect(() => {
-    onLoad(auth.accessToken!)
-      .then((data) => {
-        setCode(data)
-      })
+    if (auth.accessToken) {
+      onLoad(auth.accessToken)
+        .then((data) => {
+          setCode(data)
+        })
+    }
   }, [ auth ])
 
   const handleOnUpdate = () => {
@@ -30,7 +32,7 @@ const CodePage = () => {
       })
   }
 
-  return (auth.role === RoleType.EMPLOYEE || auth.role === RoleType.GUARDED) ? (
+  return (auth.roles?.includes(RoleType.EMPLOYEE) || auth.roles?.includes(RoleType.GUARDED)) ? (
     <PageWrapper full>
       <section className="w-full h-full flex flex-col items-center p-5 xsm:p-10">
         <div className="w-full flex flex-col justify-center mb-4 xsm:mb-8">
@@ -42,10 +44,10 @@ const CodePage = () => {
           </h1>
         </div>
         <div className="p-5 bg-gray rounded-2xl mb-8 h-[45%] xsm:h-[50%]">
-          <QRCode 
+          <QRCode
             level="H"
             bgColor="#d9d9d9"
-            value={code} 
+            value={code}
             className="h-full w-full"
           />
         </div>
