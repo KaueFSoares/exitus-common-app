@@ -1,8 +1,10 @@
 export enum URL {
-  BASE = "/mocks",
-  LOGIN = "/login.json",
-  REFRESH_ACCESS_TOKEN = "/refresh.json",
-  CODE = "/code.json",
-  UPDATE_CODE = "/updateCode.json",
+  BASE = "http://localhost:8080/api",
+  LOGIN = "/auth/login",
+  REFRESH_ACCESS_TOKEN = "/refresh-token",
+  CODE = "/user/code",
+  UPDATE_CODE = "/user/update-code",
+
+
   REGISTER = "/register.json",
 }
