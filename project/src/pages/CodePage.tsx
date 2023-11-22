@@ -1,38 +1,19 @@
-import { useContext, useEffect, useState } from "react"
 import QRCode from "react-qr-code"
 import { useTranslation } from "react-i18next"
-import { toast } from "react-toastify"
 import PageWrapper from "../components/wrapper/PageWrapper"
-import { onLoad, onUpdate } from "../service/code.service"
-import AuthContext from "../context/AuthContext"
-import { RoleType } from "../enum/RoleType"
-import { NotFoundPage } from "."
 
-const CodePage = () => {
+interface Props {
+  code: string
+  handleOnUpdate: () => void
+}
+
+const CodePage = ({
+  code,
+  handleOnUpdate,
+}: Props) => {
   const { t } = useTranslation()
 
-  const [ code, setCode ] = useState<string>("")
-
-  const { auth } = useContext(AuthContext)
-
-  useEffect(() => {
-    if (auth.accessToken) {
-      onLoad(auth.accessToken)
-        .then((data) => {
-          setCode(data)
-        })
-    }
-  }, [ auth ])
-
-  const handleOnUpdate = () => {
-    onUpdate(auth.accessToken!)
-      .then((data) => {
-        setCode(data)
-        toast.success(t("successmessage.codeupdated"))
-      })
-  }
-
-  return (auth.roles?.includes(RoleType.EMPLOYEE) || auth.roles?.includes(RoleType.GUARDED)) ? (
+  return (
     <PageWrapper full>
       <section className="w-full h-full flex flex-col items-center p-5 xsm:p-10">
         <div className="w-full flex flex-col justify-center mb-4 xsm:mb-8">
@@ -56,7 +37,7 @@ const CodePage = () => {
         </button>
       </section>
     </PageWrapper>
-  ) : <NotFoundPage />
+  )
 }
 
 export default CodePage
