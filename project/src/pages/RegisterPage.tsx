@@ -1,22 +1,15 @@
 import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2"
-import { useEffect, useState, useContext } from "react"
 import PageWrapper from "../components/wrapper/PageWrapper"
 import { IRegister } from "../interfaces/IRegister"
-import { onLoad } from "../service/register.service"
-import AuthContext from "../context/AuthContext"
 import { RegisterType } from "../enum/RegisterType"
 
-const RegisterPage = () => {
-  const [ registers, setRegisters ] = useState<IRegister[]>([])
+interface Props {
+  registers: IRegister[]
+}
 
-  const { auth } = useContext(AuthContext)
-
-  useEffect(() => {
-    onLoad(auth.accessToken!).then((registers) => {
-      setRegisters(registers)
-    })
-  }, [ auth.accessToken ])
-
+const RegisterPage = ({
+  registers,
+}: Props) => {
   return (
     <PageWrapper full={false}>
       <section className="w-full h-full flex flex-col items-center gap-2 xsm:gap-4 p-3 xsm:p-5 sm:w-3/5 md:w-1/2 lg:w-1/3 xl:w-1/4">
