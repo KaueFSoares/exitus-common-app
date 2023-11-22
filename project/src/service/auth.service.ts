@@ -32,7 +32,7 @@ const getFromLocalStorage = (): AuthData | null => {
   }
 }
 
-const refresh = async (refreshToken: string): Promise<AuthData> => {
+const refresh = async (refreshToken: string): Promise<string> => {
   const response = await OPENED_API().post(URL.REFRESH_ACCESS_TOKEN, { 
     // eslint-disable-next-line camelcase
     refresh_token: refreshToken, 
@@ -41,7 +41,7 @@ const refresh = async (refreshToken: string): Promise<AuthData> => {
       throw error
     })
 
-  return response.data as AuthData
+  return response.data.access_token as string
 }
 
 const login = async (email: string, password: string, role?: string): Promise<AuthData> => {
@@ -67,7 +67,12 @@ export const onLogin = async (email: string, password: string, role?: Role) => {
 
 export const onRefresh = async (refreshToken: string) => {
   const data = await refresh(refreshToken)
-  saveToLocalStorage(data)
+  const authData = getFromLocalStorage()
+
+  // eslint-disable-next-line camelcase
+  authData!.access_token = data
+
+  saveToLocalStorage(authData!)
 
   return data
 }
