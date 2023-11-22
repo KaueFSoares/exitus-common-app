@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify"
 import { Theme } from "@radix-ui/themes"
 import AuthContext from "./context/AuthContext"
 import AppRoutes from "./routes/AppRoutes"
-import { onLoad } from "./service/auth.service"
+import { onLoad, onLogout } from "./service/auth.service"
 import { NavbarContext, NavbarType } from "./context/NavbarContext"
 
 const App = () => {
@@ -33,6 +33,10 @@ const App = () => {
 
     if (data) {
       const isRefreshTokenExpired = new Date(data.refresh_token.expires_at).getTime() < new Date().getTime()
+
+      if (isRefreshTokenExpired) {
+        onLogout()
+      }
 
       setAuthenticated(!isRefreshTokenExpired)
     } else {
