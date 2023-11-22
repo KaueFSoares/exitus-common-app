@@ -1,3 +1,4 @@
+import { Select } from "@radix-ui/themes"
 import React, { Dispatch, SetStateAction, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AiOutlineMail, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
@@ -112,6 +113,31 @@ const LoginPage = ({
                   <AiOutlineEye className="text-3xl outline-none" />
               }
             </button>
+          </div>
+
+          <div className="flex flex-col justify-start items-center gap-4 px-4 mb-4 sm:flex-row sm:justify-center sm:gap-8">
+            <p className="font-semibold text-xl">
+            Fazer login como: 
+            </p>
+
+            <Select.Root defaultValue="guarded" size={"3"}>
+              <Select.Trigger />
+              <Select.Content>
+                <Select.Group>
+                  <Select.Item value="guarded" className="text-xl">Estudante</Select.Item>
+                  <Select.Item value="employee">Funcionário</Select.Item>
+                </Select.Group>
+                <Select.Separator />
+                <Select.Group>
+                  <Select.Item value="guardian" disabled>
+                    Responsável
+                  </Select.Item>
+                  <Select.Item value="admin" disabled>
+                    Administrador
+                  </Select.Item>
+                </Select.Group>
+              </Select.Content>
+            </Select.Root>
           </div>
 
           <Link to={t("url.rescuepassword")} className="w-full text-center text-lg font-semibold hover:underline
