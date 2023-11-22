@@ -1,33 +1,26 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { Dispatch, SetStateAction, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AiOutlineMail, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
-import { Link, useNavigate } from "react-router-dom"
-import AuthContext from "../context/AuthContext"
+import { Link } from "react-router-dom"
 
-const LoginPage = () => {
+interface Props {
+  email: string
+  setEmail: Dispatch<SetStateAction<string>>
+  password: string
+  setPassword: Dispatch<SetStateAction<string>>
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+}
+
+const LoginPage = ({
+  email,
+  setEmail,
+  password,
+  setPassword,
+  handleSubmit,
+}: Props) => {
   const { t } = useTranslation()
 
-  const { auth } = useContext(AuthContext)
-  const { handleOnLogin } = useContext(AuthContext)
-
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (auth.authenticated) {
-      navigate(t("url.home"))
-    }
-  })
-
   const [ isShown, setIsShown ] = useState(false)
-
-  const [ email, setEmail ] = useState("")
-  const [ password, setPassword ] = useState("")
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    
-    handleOnLogin(email, password, navigate)
-  }
 
   return (
     <main className="w-full h-screen bg-light-green flex flex-col items-center">
