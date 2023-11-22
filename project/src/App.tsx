@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next"
 import { useEffect, useState } from "react"
-import { ToastContainer, toast } from "react-toastify"
-import { NavigateFunction } from "react-router"
+import { ToastContainer } from "react-toastify"
+import { jwtDecode } from "jwt-decode"
 import AuthContext from "./context/AuthContext"
 import AppRoutes from "./routes/AppRoutes"
-import { AuthData, onLogin, onPageLoad } from "./service/auth.service"
+import { onLoad } from "./service/auth.service"
 import { NavbarContext, NavbarType } from "./context/NavbarContext"
 
 const App = () => {
@@ -24,32 +24,27 @@ const App = () => {
   }
 
 
-  const [ auth, setAuth ] = useState<AuthData>({ authenticated: true })
+  const [ authenticated, setAuthenticated ] = useState(true)
   
   const [ selected, setSelected ] = useState<NavbarType>(getFromURL(`/${window.location.pathname.split("/")[1]}`))
 
   useEffect(() => {
-    onPageLoad()
-      .then((data) => {
-        setAuth(data)
-      })
+    const data = onLoad()
+
+    if (data) {
+      const decodedJWT = jwtDecode(data.access_token)
+      const isRefreshTokenExpired = new Date(decodedJWT.exp!).getTime() < new Date().getTime()
+
+      setAuthenticated(!isRefreshTokenExpired)
+    } else {
+      setAuthenticated(false)
+    }
   }, [])
 
-  const handleOnLogin = (email: string, password: string, navigator: NavigateFunction) => {
-    onLogin(email, password)
-      .then((data) => {
-        setAuth(data)
-        navigator(t("url.home"))
-      })
-      .catch(() => {
-        toast.error(t("errormessage.loginfailed"))
-      })
-  }
-
   return (
-    <AuthContext.Provider value={{ auth, handleOnLogin }}>
+    <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
       <NavbarContext.Provider value={{ selected, setSelected }}>
-        <AppRoutes authenticated={auth.authenticated} />
+        <AppRoutes authenticated={authenticated} />
         <ToastContainer />
       </NavbarContext.Provider>
     </AuthContext.Provider>
