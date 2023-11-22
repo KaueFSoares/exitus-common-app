@@ -3,13 +3,16 @@ import { OpenedAPI } from "./api"
 import { URL } from "./url"
 
 export interface AuthData {
-    authenticated: boolean
-    accessToken?: string
-    tokenType?: string
-    accessTokenExpiresIn?: number
-    refreshToken?: string
-    refreshTokenExpiresIn?: number
-    roles?: RoleType[]
+  access_token: string;
+  refresh_token: Refreshtoken;
+}
+
+interface Refreshtoken {
+  id: string;
+  created_at: string;
+  expires_at: string;
+  choosed_role: string;
+  user_id: string;
 }
 
 /**
