@@ -1,3 +1,4 @@
+import { Role } from "../types/Role"
 import { OPENED_API } from "./api/opened_api"
 import { URL } from "./api/url"
 
@@ -41,6 +42,27 @@ const refresh = async (refreshToken: string): Promise<AuthData> => {
     })
 
   return response.data as AuthData
+}
+
+const login = async (email: string, password: string, role?: string): Promise<AuthData> => {
+  const response = await OPENED_API().post(URL.LOGIN, {
+    email: email, 
+    password: password, 
+    role: role,
+  })
+    .catch((error) => {
+      throw error
+    })
+
+  return response.data as AuthData
+}
+
+export const onLogin = async (email: string, password: string, role?: Role) => {
+  const data = await login(email, password, role?.toUpperCase())
+  
+  saveToLocalStorage(data)
+
+  return data
 }
 
 export const onRefresh = async (refreshToken: string) => {
