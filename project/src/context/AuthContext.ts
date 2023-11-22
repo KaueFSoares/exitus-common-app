@@ -1,13 +1,11 @@
-import { createContext } from "react"
-import { NavigateFunction } from "react-router"
-import { AuthData } from "../service/auth.service"
+import { Dispatch, SetStateAction, createContext } from "react"
 
 const AuthContext = createContext<{
-    auth: AuthData,
-    handleOnLogin: (email: string, password: string, navigator: NavigateFunction) => void,
+    authenticated: boolean
+    setAuthenticated: Dispatch<SetStateAction<boolean>>
       }>({
-        auth: {} as AuthData,
-        handleOnLogin: () => { },
+        authenticated: false,
+        setAuthenticated: () => { },
       })
 
 export default AuthContext
