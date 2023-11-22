@@ -5,6 +5,7 @@ import "./index.css"
 import "./reset.css"
 import "react-toastify/dist/ReactToastify.css"
 import "./i18n"
+import "@radix-ui/themes/styles.css"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
