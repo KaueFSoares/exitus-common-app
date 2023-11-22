@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
-import { LeavePage, LoginPage, ForgotPassword, HomePage, CodePage, RegisterPage, NotFoundPage, FirstAcessPage } from "../pages"
+import { LeavePageContainer, LoginPageContainer, ForgotPasswordContainer, HomePageContainer, CodePageContainer, RegisterPageContainer, NotFoundPageContainer, FirstAcessPageContainer } from "../container"
 import PrivateRoutes from "./PrivateRoutes"
 
 interface Props {
@@ -13,19 +13,19 @@ const AppRoutes = ({ authenticated }: Props) => {
   const router = createBrowserRouter([
     {
       path: t("url.login"),
-      element: <LoginPage />,
+      element: <LoginPageContainer />,
     },
     {
       path: t("url.rescuepassword"),
-      element: <ForgotPassword />,
+      element: <ForgotPasswordContainer />,
     },
     {
       path: t("url.firstaccess"),
-      element: <FirstAcessPage />,
+      element: <FirstAcessPageContainer />,
     },
     {
       path: "*",
-      element: <NotFoundPage />,
+      element: <NotFoundPageContainer />,
     },
     {
       element: <PrivateRoutes isAuthenticated={authenticated} />,
@@ -33,26 +33,26 @@ const AppRoutes = ({ authenticated }: Props) => {
         {
           path: t("url.home"),
           element: (
-            <HomePage />
+            <HomePageContainer />
           ),
         },
         {
           path: t("url.code"),
           element: (
-            <CodePage />
+            <CodePageContainer />
           ),
         },
         {
           path: t("url.register"),
           element: (
 
-            <RegisterPage />
+            <RegisterPageContainer />
           ),
         },
         {
           path: t("url.leave"),
           element: (
-            <LeavePage />
+            <LeavePageContainer />
           ),
         },
       ],
