@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next"
 import { useEffect, useState } from "react"
 import { ToastContainer } from "react-toastify"
-import { jwtDecode } from "jwt-decode"
 import { Theme } from "@radix-ui/themes"
 import AuthContext from "./context/AuthContext"
 import AppRoutes from "./routes/AppRoutes"
