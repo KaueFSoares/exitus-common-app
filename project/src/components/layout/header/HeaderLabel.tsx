@@ -2,11 +2,12 @@ import { IoIosArrowDown } from "react-icons/io"
 import { useContext, useState } from "react"
 import AuthContext from "../../../context/AuthContext"
 import GuardedModal from "../modal/GuardedModal"
+import { RoleType } from "../../../enum/RoleType"
 
 const guardeds = [ "João Pedro", "Matheus da Silva", "Maria Joaquina", "Julia Moraes Julia Moraes Julia Moraes" ]
 
 const HeaderLabel = () => {
-  const { auth } = useContext(AuthContext)
+  const { authenticated } = useContext(AuthContext)
 
   const [ showModal, setShowModal ] = useState(false)
 
@@ -22,11 +23,11 @@ const HeaderLabel = () => {
       <label htmlFor="headerlabelbtn" className={`font-semibold text-lg ml-3 mt-3 flex flex-grow
                       md:justify-end md:items-center md:text-left md:mr-3
                       xl:text-2xl
-                      ${auth.role === "GUARDIAN" && "cursor-pointer"}`}>
+                      ${RoleType.GUARDED === "GUARDIAN" && "cursor-pointer"}`}>
         {/* this will come from API */}
         {selectedGuarded} 
       </label>
-      {auth.role === "GUARDIAN" && (
+      {RoleType.GUARDED === "GUARDIAN" && (
         <button id="headerlabelbtn" type="button" className="outline-none h-full flex items-center justify-center mt-3" onClick={() => setShowModal((prev) => !prev)}>
           <IoIosArrowDown className={`text-2xl transition-all duration-300 ${showModal && "rotate-180"}`} />
         </button>

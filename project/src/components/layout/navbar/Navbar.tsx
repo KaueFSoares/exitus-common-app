@@ -12,13 +12,13 @@ import NavbarItem from "./NavbarItem"
 const Navbar = () => {
   const { t } = useTranslation()
 
-  const { auth } = useContext(AuthContext)
+  const { authenticated } = useContext(AuthContext)
 
   const { selected, setSelected } = useContext(NavbarContext)
 
   return (
     <nav className="shadow-full flex py-4 px-8 gap-8 rounded-full fixed bottom-4 xsm:bottom-8 bg-white z-40">
-      {auth.role === RoleType.GUARDIAN ? (
+      {RoleType.GUARDED === RoleType.GUARDIAN ? (
         <NavbarItem
           url={t("url.leave")}
           type = "leave"
