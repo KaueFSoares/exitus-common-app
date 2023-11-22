@@ -6,12 +6,6 @@ import { AuthData, onLogout, onRefresh } from "../auth.service"
 import { URL } from "./url"
 
 const useApi = (): AxiosInstance => {
-  const { setAuthenticated } = useContext(AuthContext)
-
-  const authData = JSON.parse(localStorage.getItem("authData") as string) as AuthData
-
-  const decodedJWT = jwtDecode(authData.access_token)
-
   const instance = axios.create({
     baseURL: URL.BASE,
     headers: {
@@ -19,6 +13,18 @@ const useApi = (): AxiosInstance => {
       Accept: "application/json",
     },
   })
+
+  const { setAuthenticated } = useContext(AuthContext)
+
+  const authData = JSON.parse(localStorage.getItem("authData") as string) as AuthData
+
+  if (!authData) {
+    onLogout()
+    
+    return instance
+  }
+
+  const decodedJWT = jwtDecode(authData.access_token)
 
   instance.interceptors.request.use(async (req) => {
     const isExpired = new Date(decodedJWT.exp! * 1000) < new Date()
