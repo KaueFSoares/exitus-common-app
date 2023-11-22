@@ -3,12 +3,15 @@ import React, { Dispatch, SetStateAction, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { AiOutlineMail, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { Link } from "react-router-dom"
+import { Role } from "../types/Role"
 
 interface Props {
   email: string
   setEmail: Dispatch<SetStateAction<string>>
   password: string
   setPassword: Dispatch<SetStateAction<string>>
+  role: Role
+  setRole: Dispatch<SetStateAction<Role>>
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 }
 
@@ -17,6 +20,7 @@ const LoginPage = ({
   setEmail,
   password,
   setPassword,
+  setRole,
   handleSubmit,
 }: Props) => {
   const { t } = useTranslation()
@@ -120,7 +124,7 @@ const LoginPage = ({
             Fazer login como: 
             </p>
 
-            <Select.Root defaultValue="guarded" size={"3"}>
+            <Select.Root defaultValue="guarded" size={"3"} onValueChange={ (value) => setRole(value as Role) }>
               <Select.Trigger />
               <Select.Content>
                 <Select.Group>
@@ -140,11 +144,11 @@ const LoginPage = ({
             </Select.Root>
           </div>
 
-          <Link to={t("url.rescuepassword")} className="w-full text-center text-lg font-semibold hover:underline
+          <div /* to={t("url.rescuepassword")} */ className="w-full text-center text-lg font-semibold hover:underline
           xsm:text-xl
         ">
             {t("loginpage.forgotPassword")}
-          </Link>
+          </div>
 
           <button
             type="submit"
