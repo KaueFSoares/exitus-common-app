@@ -1,14 +1,10 @@
-import axios, { AxiosInstance } from 'axios'
-import { useContext } from 'react'
-import AuthContext from '../../context/AuthContext'
-import { AuthData, onLogout, onRefresh } from '../auth.service'
-import { URL } from './url'
-import { jwtDecode } from 'jwt-decode'
+import axios, { AxiosInstance } from "axios"
+import { useContext } from "react"
+import { jwtDecode } from "jwt-decode"
+import AuthContext from "../../context/AuthContext"
+import { AuthData, onLogout, onRefresh } from "../auth.service"
+import { URL } from "./url"
 
-/**
- * Returns an instance of Axios configured for making API requests.
- * @returns {AxiosInstance} The configured Axios instance.
- */
 const useApi = (): AxiosInstance => {
   const { setAuthenticated } = useContext(AuthContext)
 
@@ -25,7 +21,7 @@ const useApi = (): AxiosInstance => {
   })
 
   instance.interceptors.request.use(async (req) => {
-    console.log(decodedJWT.exp!)
+    console.log("expiration decode test: ", decodedJWT.exp!)
     const isExpired = new Date(decodedJWT.exp!) < new Date()
 
     if (!isExpired){
