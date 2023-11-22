@@ -8,7 +8,7 @@ import "./i18n"
 import "@radix-ui/themes/styles.css"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <App />,
+  // </React.StrictMode>,
 )
