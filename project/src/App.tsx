@@ -33,8 +33,7 @@ const App = () => {
     const data = onLoad()
 
     if (data) {
-      const decodedJWT = jwtDecode(data.access_token)
-      const isRefreshTokenExpired = new Date(decodedJWT.exp!).getTime() < new Date().getTime()
+      const isRefreshTokenExpired = new Date(data.refresh_token.expires_at).getTime() < new Date().getTime()
 
       setAuthenticated(!isRefreshTokenExpired)
     } else {
