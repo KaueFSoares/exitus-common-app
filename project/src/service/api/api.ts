@@ -21,18 +21,16 @@ const useApi = (): AxiosInstance => {
   })
 
   instance.interceptors.request.use(async (req) => {
-    console.log("expiration decode test: ", decodedJWT.exp!)
-    const isExpired = new Date(decodedJWT.exp!) < new Date()
-
+    const isExpired = new Date(decodedJWT.exp! * 1000) < new Date()
     if (!isExpired){
       req.headers.Authorization = `${authData.access_token}`
       
       return req
     } 
-
+    
     await onRefresh(authData.refresh_token.id)
       .then((res) => {
-        req.headers.Authorization = `${res.access_token}`
+        req.headers.Authorization = `${res}`
       })
       .catch((err) => {
       // eslint-disable-next-line no-console
