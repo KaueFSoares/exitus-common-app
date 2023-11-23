@@ -1,10 +1,10 @@
-import { RegisterType } from "../enum/RegisterType"
+import { RegisterEnum } from "../enum/RegisterType"
 
 export interface IRegister {
   id: string,
   user_id: string,
   time: Date,
-  type: RegisterType,
+  type: RegisterEnum,
 }
 
 export interface IRegisterResponse {
