@@ -5,10 +5,18 @@ import { RegisterType } from "../enum/RegisterType"
 
 interface Props {
   registers: IRegister[]
+  nextPage: () => void
+  previousPage: () => void
+  page: number
+  totalPages: number
 }
 
 const RegisterPage = ({
   registers,
+  nextPage,
+  previousPage,
+  page,
+  totalPages,
 }: Props) => {
   return (
     <PageWrapper full={false}>
@@ -28,10 +36,30 @@ const RegisterPage = ({
               key={register.id} 
               className={`${register.type === RegisterType.IN ? "bg-light-green text-white" : "bg-white text-light-green"} grid grid-cols-3 py-2 px-4 text-base rounded-xl shadow-full font-semibold `}>
               <p className="flex justify-start">{register.type === RegisterType.IN ? "Entrada" : "Saída"}</p>
-              <p className="flex justify-center">{`${String(register.date_time.getHours()).padStart(2, "0")}:${String(register.date_time.getMinutes()).padStart(2, "0")}`}</p>
-              <p className="flex justify-end">{`${register.date_time.getDate()}/${register.date_time.getMonth() + 1}/${register.date_time.getFullYear()}`}</p>
+              <p className="flex justify-center">{`${String(register.time.getHours()).padStart(2, "0")}:${String(register.time.getMinutes()).padStart(2, "0")}`}</p>
+              <p className="flex justify-end">{`${register.time.getDate()}/${register.time.getMonth() + 1}/${register.time.getFullYear()}`}</p>
             </li>
           ))}
+
+          <div className="flex justify-center gap-4 items-center mt-4">
+            <button 
+              type="button" 
+              className="bg-light-green p-2 rounded-xl text-3xl flex items-center justify-center disabled:opacity-50"
+              onClick={previousPage}
+              disabled={page === 0}
+            >
+              <img src="/icon/right_arrow.png" alt="" className="h-5 w-5 invert rotate-180" />
+            </button>
+            <p className="text-light-green font-bold">{`${page + 1} de ${totalPages} páginas`}</p>
+            <button 
+              type="button" 
+              className="bg-light-green p-2 rounded-xl text-3xl flex items-center justify-center disabled:opacity-50"
+              onClick={nextPage}
+              disabled={page === totalPages - 1}
+            >
+              <img src="/icon/right_arrow.png" alt="" className="h-5 w-5 invert" />
+            </button>
+          </div>
         </ul>
       </section>
     </PageWrapper>
