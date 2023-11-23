@@ -6,6 +6,7 @@ import AuthContext from "./context/AuthContext"
 import AppRoutes from "./routes/AppRoutes"
 import { onLoad, onLogout } from "./service/auth.service"
 import { NavbarContext, NavbarType } from "./context/NavbarContext"
+import LoadingContext from "./context/LoadingContext"
 
 const App = () => {
   const { t } = useTranslation()
@@ -23,11 +24,11 @@ const App = () => {
     }
   }
 
+  const [ loading, setLoading ] = useState(false)
 
   const [ authenticated, setAuthenticated ] = useState(true)
   
   const [ selected, setSelected ] = useState<NavbarType>(getFromURL(`/${window.location.pathname.split("/")[1]}`))
-
   useEffect(() => {
     const data = onLoad()
 
@@ -46,12 +47,14 @@ const App = () => {
 
   return (
     <Theme>
-      <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
-        <NavbarContext.Provider value={{ selected, setSelected }}>
-          <AppRoutes authenticated={authenticated} />
-          <ToastContainer />
-        </NavbarContext.Provider>
-      </AuthContext.Provider>
+      <LoadingContext.Provider value={{ loading, setLoading }}>
+        <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
+          <NavbarContext.Provider value={{ selected, setSelected }}>
+            <AppRoutes authenticated={authenticated} />
+            <ToastContainer />
+          </NavbarContext.Provider>
+        </AuthContext.Provider>
+      </LoadingContext.Provider>
     </Theme>
   )
 }
