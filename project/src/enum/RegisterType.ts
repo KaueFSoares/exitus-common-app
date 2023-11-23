@@ -1,4 +1,4 @@
-export enum RegisterType {
+export enum RegisterEnum {
   IN = "IN",
   OUT = "OUT",
 }
