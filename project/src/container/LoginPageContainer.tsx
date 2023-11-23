@@ -1,9 +1,10 @@
-import { FormEvent, useContext, useState } from "react"
+import { FormEvent, useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { LoginPage } from "../pages"
 import { Role } from "../types/Role"
 import { onLogin } from "../service/auth.service"
 import AuthContext from "../context/AuthContext"
+import LoadingContext from "../context/LoadingContext"
 
 const LoginPageContainer = () => {
   const navigate = useNavigate()
@@ -12,19 +13,27 @@ const LoginPageContainer = () => {
   const [ password, setPassword ] = useState("")
   const [ role, setRole ] = useState<Role>("guarded")
 
-  const { setAuthenticated } = useContext(AuthContext)
+  const { setLoading } = useContext(LoadingContext)
+  const { authenticated, setAuthenticated } = useContext(AuthContext)
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    return await onLogin(email, password, role)
-      .then((res) => {
+    setLoading(true)
+
+    await onLogin(email, password, role)
+      .then(() => {
+        setLoading(false)
         setAuthenticated(true)
         navigate("/")
-
-        return res
       })
   }
+
+  useEffect(() => {
+    if (authenticated) {
+      navigate("/")
+    }
+  }, [ authenticated, navigate ])
 
   return (
     <LoginPage 
