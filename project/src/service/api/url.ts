@@ -3,4 +3,6 @@ export enum URL {
   LOGIN = "/auth",
   REFRESH_ACCESS_TOKEN = "/auth/refresh-token",
   USER = "/user",
+  MY_CODE = "/my-code",
+  REFRESH_MY_CODE = "/refresh-my-code",
 }
