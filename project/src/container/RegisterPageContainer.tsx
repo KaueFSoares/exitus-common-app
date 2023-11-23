@@ -3,6 +3,7 @@ import { RegisterPage } from "../pages"
 import { IRegister } from "../interfaces/IRegister"
 import useRegister from "../service/pages/register.service"
 import LoadingContext from "../context/LoadingContext"
+import { RegisterType } from "../types/Register"
 
 const RegisterPageContainer = () => {
   const [ page, setPage ] = useState<number>(0)
@@ -13,6 +14,18 @@ const RegisterPageContainer = () => {
     registers: [],
     totalItems: 0,
   })
+
+  const [ type, setType ] = useState<RegisterType>("in")
+  const [ dateStart, setDateStart ] = useState("")
+  const [ dateEnd, setDateEnd ] = useState("")
+
+  const handleDateStartChange = (date: string) => {
+    setDateStart(date)
+  }
+
+  const handleDateEndChange = (date: string) => {
+    setDateEnd(date)
+  }
 
   const registerService = useRegister()
 
@@ -61,6 +74,11 @@ const RegisterPageContainer = () => {
       previousPage={previousPage}
       page={page}
       totalPages={totalPages}
+      setType={setType}
+      handleDateStartChange={handleDateStartChange}
+      handleDateEndChange={handleDateEndChange}
+      dateEnd={dateEnd}
+      dateStart={dateStart}   
     />
   )
 }
