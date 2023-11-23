@@ -29,14 +29,14 @@ const useApi = (): AxiosInstance => {
   instance.interceptors.request.use(async (req) => {
     const isExpired = new Date(decodedJWT.exp! * 1000) < new Date()
     if (!isExpired){
-      req.headers.Authorization = `${authData.access_token}`
+      req.headers.Authorization = `BEARER ${authData.access_token}`
       
       return req
     } 
     
     await onRefresh(authData.refresh_token.id)
       .then((res) => {
-        req.headers.Authorization = `${res}`
+        req.headers.Authorization = `BEARER ${res}`
       })
       .catch((err) => {
       // eslint-disable-next-line no-console
