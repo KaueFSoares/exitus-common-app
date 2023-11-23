@@ -13,7 +13,7 @@ const useHeader = () => {
   }
 
   return {
-    getName: getName,
+    getName,
   }
 }
 
