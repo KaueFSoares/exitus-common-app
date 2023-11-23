@@ -5,4 +5,5 @@ export enum URL {
   MY_PROFILE = "/my-profile",
   MY_CODE = "/my-code",
   REFRESH_MY_CODE = "/refresh-my-code",
+  MY_REGISTERS = "/my-registers",
 }
