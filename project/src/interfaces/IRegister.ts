@@ -3,6 +3,18 @@ import { RegisterType } from "../enum/RegisterType"
 export interface IRegister {
   id: string,
   user_id: string,
-  date_time: Date,
+  time: Date,
   type: RegisterType,
+}
+
+export interface IRegisterResponse {
+  registers: {
+    id: string,
+    register_type: string,
+    time: string,
+    created_at: string,
+    updated_at: string,
+    user_id: string,
+  }[],
+  count: number,
 }
