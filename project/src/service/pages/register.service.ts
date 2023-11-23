@@ -6,7 +6,7 @@ const useRegister = () => {
   const api = useApi()
 
   const getRegisters = async (page: number) => {
-    const response = await api.get(`${URL.MY_REGISTERS}?sort=asc`, {
+    const response = await api.get(`${URL.MY_REGISTERS}?sort=desc`, {
       params: {
         page: page,
         limit: 8,

@@ -44,7 +44,7 @@ const RegisterPage = ({
           <div className="flex justify-center gap-4 items-center mt-4">
             <button 
               type="button" 
-              className="bg-light-green p-2 rounded-xl text-3xl flex items-center justify-center disabled:opacity-50"
+              className="bg-light-green p-2 rounded-xl text-3xl flex items-center justify-center disabled:opacity-0"
               onClick={previousPage}
               disabled={page === 0}
             >
@@ -53,7 +53,7 @@ const RegisterPage = ({
             <p className="text-light-green font-bold">{`${page + 1} de ${totalPages} páginas`}</p>
             <button 
               type="button" 
-              className="bg-light-green p-2 rounded-xl text-3xl flex items-center justify-center disabled:opacity-50"
+              className="bg-light-green p-2 rounded-xl text-3xl flex items-center justify-center disabled:opacity-0"
               onClick={nextPage}
               disabled={page === totalPages - 1}
             >

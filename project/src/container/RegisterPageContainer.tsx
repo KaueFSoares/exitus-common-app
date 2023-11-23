@@ -18,7 +18,7 @@ const RegisterPageContainer = () => {
 
   const { setLoading } = useContext(LoadingContext)
 
-  const totalPages = Math.ceil(registers.totalItems / 10)
+  const totalPages = Math.ceil(registers.totalItems / 8)
 
   useEffect(() => {
     setLoading(true)
