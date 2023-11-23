@@ -1,5 +1,6 @@
 import { FormEvent, useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 import { LoginPage } from "../pages"
 import { Role } from "../types/Role"
 import { onLogin } from "../service/auth.service"
@@ -26,6 +27,11 @@ const LoginPageContainer = () => {
         setLoading(false)
         setAuthenticated(true)
         navigate("/")
+      })
+      .catch(() => {
+        setLoading(false)
+        setAuthenticated(false)
+        toast.error("Email, senha ou tipo de acesso incorretos")
       })
   }
 
