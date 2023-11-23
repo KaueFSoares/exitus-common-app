@@ -5,7 +5,7 @@ const useHeader = () => {
   const api = useApi()
 
   const getName = async () => {
-    const response = await api.get(URL.USER)
+    const response = await api.get(URL.MY_PROFILE)
     
     const data = await response.data.name as string
 

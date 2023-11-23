@@ -1,8 +1,5 @@
-
-// const guardeds = [ "João Pedro", "Matheus da Silva", "Maria Joaquina", "Julia Moraes Julia Moraes Julia Moraes" ]
-
 import { useEffect, useState } from "react"
-//import useHeader from "../../../service/components/useHeader"
+import useHeader from "../../../service/components/useHeader"
 
 const HeaderLabel = () => {
   //const [ showModal, setShowModal ] = useState(false)
@@ -17,11 +14,10 @@ const HeaderLabel = () => {
    */
   const [ name, setName ] = useState("Teste")
 
-  //const headerService = useHeader()
+  const headerService = useHeader()
 
   useEffect(() => {
-    setName("Kauê Felipe Muller Soares")
-    //headerService.getName().then((name) => setName(name))
+    headerService.getName().then((name) => setName(name))
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
