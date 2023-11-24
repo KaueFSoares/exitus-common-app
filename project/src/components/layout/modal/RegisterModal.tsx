@@ -11,6 +11,7 @@ interface Props {
   handleDateEndChange: (date: string) => void
   dateStart: string
   dateEnd: string
+  handleOnSubmit: () => void
 }
 
 const RegisterModal = ({
@@ -21,6 +22,7 @@ const RegisterModal = ({
   handleDateEndChange,
   dateStart,
   dateEnd,
+  handleOnSubmit,
 }: Props) => {
   return (
     <Modal handleOnClose={handleOnClose} title="Filtros">
@@ -82,7 +84,10 @@ const RegisterModal = ({
       <button
         type="button"
         className="bg-white text-light-green flex items-center justify-center p-2 w-full mt-4 font-bold text-2xl rounded-xl"
-        onClick={() => handleOnClose(false)}
+        onClick={() => {
+          handleOnSubmit()
+          handleOnClose(false)
+        }}
       >
         Concluir
       </button>

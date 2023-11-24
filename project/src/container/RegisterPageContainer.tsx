@@ -49,13 +49,11 @@ const RegisterPageContainer = () => {
     })
   }
 
-  console.log(registers)
-
   const registerService = useRegister({ limit: pageSize })
 
   const { setLoading } = useContext(LoadingContext)
-
-  const totalPages = Math.ceil(registers.totalItems / pageSize)
+  
+  const totalPages = registers.totalItems > 0 ? Math.ceil(registers.totalItems / pageSize) : 0
 
   useEffect(() => {
     setLoading(true)
