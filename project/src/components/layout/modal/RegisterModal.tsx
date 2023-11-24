@@ -5,7 +5,8 @@ import Modal from "./Modal"
 
 interface Props {
   handleOnClose: Dispatch<SetStateAction<boolean>>
-  setType: Dispatch<SetStateAction<RegisterType>>
+  type: RegisterType | null
+  setType: Dispatch<SetStateAction<RegisterType | null>>
   handleDateStartChange: (date: string) => void
   handleDateEndChange: (date: string) => void
   dateStart: string
@@ -14,6 +15,7 @@ interface Props {
 
 const RegisterModal = ({
   handleOnClose,
+  type,
   setType,
   handleDateStartChange,
   handleDateEndChange,
@@ -27,12 +29,13 @@ const RegisterModal = ({
           {"Tipo: "}
         </h2>
 
-        <Select.Root defaultValue="in" size={"3"} onValueChange={ (value) => setType(value as RegisterType) }>
+        <Select.Root defaultValue={type ? type : "none"} size={"3"} onValueChange={ (value) => setType(value === "none" ? null : value as RegisterType) }>
           <Select.Trigger />
           <Select.Content>
             <Select.Group>
               <Select.Item value="in" className="text-xl">Entrada</Select.Item>
               <Select.Item value="out">Saída</Select.Item>
+              <Select.Item value="none">Qualquer</Select.Item>
             </Select.Group>
           </Select.Content>
         </Select.Root>

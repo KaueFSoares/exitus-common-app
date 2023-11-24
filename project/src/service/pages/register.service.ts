@@ -1,15 +1,43 @@
 import { IRegister, IRegisterResponse } from "../../interfaces/IRegister"
+import { RegisterType } from "../../types/Register"
 import useApi from "../api/api"
 import { URL } from "../api/url"
 
-const useRegister = () => {
+interface Props {
+  limit: number
+}
+
+interface getRegistersProps {
+  page: number
+  sort?: string
+  type?: RegisterType
+  dateStart?: string
+  dateEnd?: string
+}
+
+const useRegister = ({
+  limit,
+}: Props) => {
   const api = useApi()
 
-  const getRegisters = async (page: number) => {
-    const response = await api.get(`${URL.MY_REGISTERS}?sort=desc`, {
+  const getRegisters = async ({
+    page,
+    sort,
+    type,
+    dateStart,
+    dateEnd,
+  }: getRegistersProps) => {
+    const sortParam = sort ? `sort=${sort}` : "desc"
+    const typeParam = type ? `&type=${type.toUpperCase()}` : ""
+    const dateStartParam = dateStart ? `&start=${new Date(dateStart).toISOString()}` : ""
+    const dateEndParam = dateEnd ? `&end=${new Date(dateEnd).toISOString()}` : ""
+
+    const customParams = `?${sortParam}${typeParam}${dateStartParam}${dateEndParam}`
+    
+    const response = await api.get(`${URL.MY_REGISTERS}${customParams}`, {
       params: {
         page: page,
-        limit: 8,
+        limit: limit,
       },
     })
     

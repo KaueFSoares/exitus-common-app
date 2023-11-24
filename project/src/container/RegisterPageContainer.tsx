@@ -6,6 +6,9 @@ import LoadingContext from "../context/LoadingContext"
 import { RegisterType } from "../types/Register"
 
 const RegisterPageContainer = () => {
+  const pageSize = 8
+  const defaultSort = "desc"
+
   const [ page, setPage ] = useState<number>(0)
   const [ registers, setRegisters ] = useState<{
     registers: IRegister[]
@@ -15,7 +18,7 @@ const RegisterPageContainer = () => {
     totalItems: 0,
   })
 
-  const [ type, setType ] = useState<RegisterType>("in")
+  const [ type, setType ] = useState<RegisterType | null>(null)
   const [ dateStart, setDateStart ] = useState("")
   const [ dateEnd, setDateEnd ] = useState("")
 
@@ -27,16 +30,40 @@ const RegisterPageContainer = () => {
     setDateEnd(date)
   }
 
-  const registerService = useRegister()
+  const handleSubmit = () => {
+    setLoading(true)
+
+    registerService.getRegisters({
+      page: page,
+      sort: defaultSort,
+      type: type ? type : undefined,
+      dateStart: dateStart,
+      dateEnd: dateEnd,
+    }).then((res) => {
+      console.log("res: ", res.registers)
+      setRegisters({
+        registers: res.registers,
+        totalItems: res.count,
+      })
+      setLoading(false)
+    })
+  }
+
+  console.log(registers)
+
+  const registerService = useRegister({ limit: pageSize })
 
   const { setLoading } = useContext(LoadingContext)
 
-  const totalPages = Math.ceil(registers.totalItems / 8)
+  const totalPages = Math.ceil(registers.totalItems / pageSize)
 
   useEffect(() => {
     setLoading(true)
 
-    registerService.getRegisters(0).then((res) => {
+    registerService.getRegisters({
+      page: page,
+      sort: defaultSort,
+    }).then((res) => {
       setRegisters({
         registers: res.registers,
         totalItems: res.count,
@@ -49,7 +76,10 @@ const RegisterPageContainer = () => {
   useEffect(() => {
     setLoading(true)
 
-    registerService.getRegisters(page).then((res) => {
+    registerService.getRegisters({
+      page: page,
+      sort: defaultSort,
+    }).then((res) => {
       setRegisters({
         registers: res.registers,
         totalItems: res.count,
@@ -74,11 +104,13 @@ const RegisterPageContainer = () => {
       previousPage={previousPage}
       page={page}
       totalPages={totalPages}
+      type={type}
       setType={setType}
       handleDateStartChange={handleDateStartChange}
       handleDateEndChange={handleDateEndChange}
       dateEnd={dateEnd}
       dateStart={dateStart}   
+      handleSubmit={handleSubmit}
     />
   )
 }

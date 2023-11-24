@@ -12,11 +12,13 @@ interface Props {
   previousPage: () => void
   page: number
   totalPages: number
-  setType: Dispatch<SetStateAction<RegisterType>>
+  type: RegisterType | null
+  setType: Dispatch<SetStateAction<RegisterType | null>>
   handleDateStartChange: (date: string) => void
   handleDateEndChange: (date: string) => void
   dateStart: string,
-  dateEnd: string
+  dateEnd: string,
+  handleSubmit: () => void
 }
 
 const RegisterPage = ({
@@ -25,11 +27,13 @@ const RegisterPage = ({
   previousPage,
   page,
   totalPages,
+  type,
   setType,
   handleDateStartChange,
   handleDateEndChange,
   dateStart,
   dateEnd,
+  handleSubmit,
 }: Props) => {
   const [ showFilterModal, setShowFilterModal ] = useState(false)
 
@@ -37,7 +41,11 @@ const RegisterPage = ({
     <PageWrapper full={false}>
       <section className="w-full h-full flex flex-col items-center gap-2 xsm:gap-4 p-3 xsm:p-5 sm:w-3/5 md:w-1/2 lg:w-1/3 xl:w-1/4">
         <header className="bg-light-green w-full px-5 py-2 xsm:py-3 rounded-2xl text-light-green flex justify-between gap-4">
-          <button type="button" className="bg-white h-full p-2 flex-grow rounded-xl font-bold uppercase text-lg">
+          <button 
+            type="button" 
+            className="bg-white h-full p-2 flex-grow rounded-xl font-bold uppercase text-lg"
+            onClick={() => handleSubmit()}
+          >
             Consultar
           </button>
           <button 
@@ -85,6 +93,7 @@ const RegisterPage = ({
       { showFilterModal && (
         <RegisterModal 
           handleOnClose={setShowFilterModal} 
+          type={type}
           setType={setType} 
           handleDateStartChange={handleDateStartChange} 
           handleDateEndChange={handleDateEndChange}
