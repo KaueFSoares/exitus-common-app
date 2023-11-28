@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import useHeader from "../../../service/components/useHeader"
+import LoadingContext from "../../../context/LoadingContext"
 
 const HeaderLabel = () => {
   //const [ showModal, setShowModal ] = useState(false)
@@ -16,8 +17,14 @@ const HeaderLabel = () => {
 
   const headerService = useHeader()
 
+  const { setLoading } = useContext(LoadingContext)
+
   useEffect(() => {
-    headerService.getName().then((name) => setName(name))
+    setLoading(true)
+    headerService.getName().then((name) => {
+      setName(name)
+      setLoading(false)
+    })
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
