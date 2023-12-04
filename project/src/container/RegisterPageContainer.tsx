@@ -40,7 +40,6 @@ const RegisterPageContainer = () => {
       dateStart: dateStart,
       dateEnd: dateEnd,
     }).then((res) => {
-      console.log("res: ", res.registers)
       setRegisters({
         registers: res.registers,
         totalItems: res.count,

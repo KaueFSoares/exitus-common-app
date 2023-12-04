@@ -10,7 +10,7 @@ interface Props {
   handleDateStartChange: (date: string) => void
   handleDateEndChange: (date: string) => void
   dateStart: string
-  dateEnd: string
+  dateEnd: string,
   handleOnSubmit: () => void
 }
 
@@ -31,7 +31,14 @@ const RegisterModal = ({
           {"Tipo: "}
         </h2>
 
-        <Select.Root defaultValue={type ? type : "none"} size={"3"} onValueChange={ (value) => setType(value === "none" ? null : value as RegisterType) }>
+        <Select.Root 
+          defaultValue={type ? type : "none"} 
+          size={"3"} 
+          value={type ? type : "none"}
+          onValueChange={ 
+            (value) => setType(value === "none" ? null : value as RegisterType) 
+          }
+        >
           <Select.Trigger />
           <Select.Content>
             <Select.Group>
@@ -80,6 +87,18 @@ const RegisterModal = ({
           />
         </div>
       </div>
+
+      <button
+        type="button"
+        className="bg-white text-light-green flex items-center justify-center p-2 w-full mt-8 font-bold text-2xl rounded-xl"
+        onClick={() => {
+          setType(null)
+          handleDateStartChange("")
+          handleDateEndChange("")
+        }}
+      >
+        Limpar
+      </button>
 
       <button
         type="button"

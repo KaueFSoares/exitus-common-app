@@ -35,7 +35,7 @@ const RegisterPage = ({
   dateEnd,
   handleSubmit,
 }: Props) => {
-  const [showFilterModal, setShowFilterModal] = useState(false)
+  const [ showFilterModal, setShowFilterModal ] = useState(false)
 
   return (
     <PageWrapper full={false}>
@@ -82,7 +82,7 @@ const RegisterPage = ({
               >
                 <img src="/icon/right_arrow.png" alt="" className="h-5 w-5 invert rotate-180" />
               </button>
-              <p className="text-light-green font-bold">{`${page === 0 ? 0 : page + 1} de ${totalPages} páginas`}</p>
+              <p className="text-light-green font-bold">{`${page + 1} de ${totalPages} páginas`}</p>
               <button
                 type="button"
                 className="bg-light-green p-2 rounded-xl text-3xl flex items-center justify-center disabled:opacity-0"
@@ -93,8 +93,6 @@ const RegisterPage = ({
               </button>
             </div>
           )}
-
-
         </ul>
       </section>
 
